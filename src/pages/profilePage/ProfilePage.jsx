@@ -2,6 +2,8 @@ import React from "react";
 import { styled } from "styled-components";
 import jejus from '../../assets/img/jejus.jpg'
 import ten from '../../assets/img/10.jpg'
+import { ReactComponent as AddArrow } from '../../assets/icons/addArrow.svg';
+
 
 export default function MyPage() {
 
@@ -39,12 +41,12 @@ export default function MyPage() {
         <CreatedPin>저장됨</CreatedPin>
       </PinViewBox>
 
-      <PinMakeBtnWrap>
-        <div>
-          <PinMakeBtn></PinMakeBtn>
-        </div>
-      </PinMakeBtnWrap>
-      
+      <ContentsWrap>
+        <PinMakeBtn>
+          <AddArrow/>
+        </PinMakeBtn>
+      </ContentsWrap>
+        
 
       <PinCardContainor>
         {imgs.map((image)=>(
@@ -79,6 +81,14 @@ export default function MyPage() {
     </>
   );
 }
+
+const ContentsWrap = styled.div`
+  //position: relative;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: 20px;
+  padding-bottom: 100px;
+`
 
 const ProfileContentBox = styled.div`
   display: flex;
@@ -125,7 +135,7 @@ const ProfileWeb = styled.div`
 `
 
 const ProfileComment = styled.div`
-  margin-left: 5px;
+  margin-left: auto;
 `
 
 const ProfileBtnSet = styled.div`
@@ -144,43 +154,21 @@ const ProfileBtn = styled.button`
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-
-`
-
-const PinMakeBtnWrap = styled.div`
-  position: relative; /* 부모 요소를 relative로 설정합니다. */
-  margin: 10px 10px 90px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  div {
-    box-sizing: border-box;
-    width: 24px;
-    height: 24px;
-    display: flex;
-
-    &:hover {
-    background-color:#efefef;
-    border-radius: 12px;
-    };
-
-    &::before {
-      content: "";
-      position: absolute;
-      right: 50%;
-      width: 20px;
-      height: 20px;
-      -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M 22 10 h -8 V 2 a 2 2 0 0 0 -4 0 v 8 H 2 a 2 2 0 0 0 0 4 h 8 v 8 a 2 2 0 0 0 4 0 v -8 h 8 a 2 2 0 0 0 0 -4'/></svg>");
-      -webkit-mask-repeat: no-repeat;
-      -webkit-mask-size: 100% 100%;
-      background-color: #000; 
-    }
-  }
 `
 
 const PinMakeBtn = styled.div`
-  
+    width: 40px;
+    height: 40px;
+    //position: absolute;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+    background-color:#efefef;
+    border-radius: 50%;
+    };
 `
 
 const PinViewBox = styled.div`
@@ -209,6 +197,7 @@ const CreatedPin = styled.div`
 const PinCardContainor = styled.div`
   column-width: 230px;
   margin: 10px 50px 0 50px;
+  gap: 20px;
 `
 
 const PinCard = styled.div`

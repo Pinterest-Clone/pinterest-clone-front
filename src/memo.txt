@@ -1,4 +1,4 @@
-<h1>outlet<h1>
+## outlet
 - outlet 태그는 수정할 부분
 - outlet 태그를 가진 pageLayout은 상위 컴포넌트에서 수정되지 않는 부분
 
