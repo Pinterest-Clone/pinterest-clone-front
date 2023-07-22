@@ -3,42 +3,48 @@ import styled from "styled-components";
 import LogoLogin from "../../assets/icons/PinterestLogoLogin.png";
 import UnderIcon from "../../assets/icons/undericon.png"
 import SearchIcon from "../../assets/icons/seachicon.png"
+import AlarmIcon from "../../assets/icons/bellicon.png"
+import MessageIcon from "../../assets/icons/chaticon.png"
 
 const HeaderLogin = ({ onLogout }) => {
 
-    const [showDropdown, setShowDropdown] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
 
-    const toggleDropdown = () => {
-        setShowDropdown((prevState) => !prevState);
-    };
+  const toggleDropdown = () => {
+    setShowDropdown((prevState) => !prevState);
+  };
 
-    return (
-        <HeaderInContainer>
-            <HeaderLogo src={LogoLogin} alt="image" onClick={() => window.location.reload()} />
-            <HomeButton>홈</HomeButton>
-            <MakingContainer onClick={toggleDropdown}>
-                <MakeButton>만들기</MakeButton>
-                <UnderIconImg src={UnderIcon} alt="undericon" />
-            </MakingContainer>
-            {showDropdown && (
-                <DropdownContainer>
-                    <DropdownButton>Dropdown Button 1</DropdownButton>
-                    <DropdownButton>Dropdown Button 2</DropdownButton>
-                </DropdownContainer>
-            )}
-            <SearchContainer>
-                <SearchInput placeholder="Search" />
-                <SearchIconImg src={SearchIcon} alt="search" />
-            </SearchContainer>
-            <button onClick={onLogout}>로그아웃</button>
-        </HeaderInContainer>
+  return (
+    <HeaderInContainer>
+      <HeaderLogo src={LogoLogin} alt="image" onClick={() => window.location.reload()} />
+      <HomeButton>홈</HomeButton>
+      <MakingContainer onClick={toggleDropdown}>
+        <MakeButton>만들기</MakeButton>
+        <UnderIconImg src={UnderIcon} alt="undericon" />
+      </MakingContainer>
+      {showDropdown && (
+        <DropdownContainer>{/*만들기에 나오는 드롭다운 가장 바깥 컨테이너 박스 */}
+          <DropdownButton>Dropdown Button 1</DropdownButton>
+          <DropdownButton>Dropdown Button 2</DropdownButton>
+        </DropdownContainer>
+      )}
+      <SearchContainer>{/*검색 기능 박스 컨테이너*/}
+        <SearchInput placeholder="Search" />
+        <SearchIconImg src={SearchIcon} alt="search" />
+      </SearchContainer>
+      <ButtonContainer><AlarmButton src={AlarmIcon} alt="alarm" /></ButtonContainer>
+      <ButtonContainer><MessageButton src={MessageIcon} alt="message" /></ButtonContainer>
+      <ButtonContainer>⚫</ButtonContainer>
+      <button onClick={onLogout}>로그아웃</button>
+    </HeaderInContainer>
 
-    );
+  );
 };
 
 
 
 const HeaderInContainer = styled.div`
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -74,7 +80,7 @@ const SearchContainer = styled.div`
 `;
 
 const SearchInput = styled.input`
-  padding: 8px 25px 8px 10px;
+  padding: 13px 45px 13px 10px;
   border-radius: 20px;
   background-color: lightgray;
   border: none;
@@ -128,5 +134,29 @@ const DropdownButton = styled.button`
   border: none;
   background-color: transparent;
   cursor: pointer;
+`;
+
+const ButtonContainer = styled.div`
+  height: 42px;
+  width: 42px;
+  cursor: pointer;
+  border-radius: 20px;
+  margin-left: 10px ;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+   &:hover {
+    background-color: #dfdfdf;
+  }
+`;
+
+const AlarmButton = styled.img`
+  height: 35px;
+  width: 35px;
+`;
+
+const MessageButton = styled.img`
+  height: 30px;
+  width: 30px;
 `
 export default HeaderLogin;
