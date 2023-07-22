@@ -1,0 +1,6 @@
+<h1>outlet<h1>
+- outlet 태그는 수정할 부분
+- outlet 태그를 가진 pageLayout은 상위 컴포넌트에서 수정되지 않는 부분
+
+<h1>Promise</h1>
+- base URL을 사용해서 토큰 사용할 수 있게 해주는 것?
