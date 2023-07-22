@@ -1,11 +1,11 @@
 import { Route, Routes } from "react-router-dom";
 import PageLayout from "./layout/PageLayout";
-import HomePage from "./pages/HomePage/HomePage";
-import IntroPage from "./pages/IntroPage/IntroPage";
-import MakePinPage from "./pages/MakePinPage/MakePinPage";
-import ProfilePage from "./pages/ProfilePage/ProfilePage";
-import ProfileEditPage from "./pages/ProfileEditPage/ProfileEditPage";
-import PinDetailPage from "./pages/PinDetailPage/PinDetailPage";
+import HomePage from "./pages/homePage/HomePage";
+import IntroPage from "./pages/introPage/IntroPage";
+import MakePinPage from "./pages/makePinPage/MakePinPage";
+import ProfilePage from "./pages/profilePage/ProfilePage";
+import ProfileEditPage from "./pages/profileEditPage/ProfileEditPage";
+import PinDetailPage from "./pages/pinDetailPage/PinDetailPage";
 
 function App() {
   return (
