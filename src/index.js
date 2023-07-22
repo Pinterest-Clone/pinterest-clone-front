@@ -5,6 +5,7 @@ import App from "./App";
 import { Reset } from "styled-reset";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import { Reset } from "styled-reset";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
