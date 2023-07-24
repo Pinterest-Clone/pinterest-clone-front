@@ -140,3 +140,5 @@ margin-top: 10px;
 `;
 
 export default LoginModal;
+
+//리다이렉션 쏴서 토큰 받아서 쿠키 저장
