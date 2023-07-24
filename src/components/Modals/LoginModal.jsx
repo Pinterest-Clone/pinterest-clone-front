@@ -1,25 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Logo from "../../assets/icons/PinterestLogoLogin.png"
 
-const LoginModal = ({ onClose }) => {
-    // 로그인 폼과 관련된 로직을 구현합니다.
-    // useState를 사용하여 폼 입력값을 관리하고, handleLogin 함수를 사용하여 로그인 절차를 처리합니다.
+const LoginModal = ({ onClose, onLogin }) => {
+  const [isModalLogIn, setModalLogIn] = useState(false);
 
-    return (
-        <ModalOverlay>
-            <ModalContent>
-                <LogoImageIcon src={Logo} alt="image" />
-                <form>
-                    <input type="text" placeholder="이메일" />
-                    <input type="password" placeholder="비밀번호" />
-                    <ForgotText>비밀번호를 잊으셨나요?</ForgotText>
-                    <button type="submit">로그인</button>
-                </form>
-                <CloseButton onClick={onClose}>닫기</CloseButton>
-            </ModalContent>
-        </ModalOverlay>
-    );
+  const handleModalLogin = () => {
+    // 로그인 폼과 관련된 로직을 구현합니다.
+    // 이 예시에서는 간단하게 모달 안의 로그인 버튼을 눌렀을 때 isModalLogIn 값을 true로 변경하는 것으로 가정합니다.
+    setModalLogIn(true);
+  };
+
+  const handleCloseModal = () => {
+    onClose();
+    setModalLogIn(false);
+  };
+
+  return (
+    <ModalOverlay>
+      <ModalContent>
+        <HeaderContainer>
+          <LogoImageIcon src={Logo} alt="image" />
+          <CloseButton onClick={handleCloseModal}>닫기</CloseButton>
+        </HeaderContainer>
+        <WelcomeText>Pinterest에 오신 것을 <br />환영합니다</WelcomeText>
+        <Form>
+          <LoginText>이메일</LoginText>
+          <Input type="text" placeholder="이메일" />
+          <LoginText>비밀번호</LoginText>
+          <Input type="password" placeholder="비밀번호" />
+          <ForgotText>비밀번호를 잊으셨나요?</ForgotText>
+          <Button type="submit" onClick={handleModalLogin}>로그인</Button>
+        </Form>
+      </ModalContent>
+    </ModalOverlay>
+  );
 };
 
 const ModalOverlay = styled.div`
@@ -38,20 +53,80 @@ const ModalOverlay = styled.div`
 const ModalContent = styled.div`
   background-color: white;
   padding: 20px;
-  border-radius: 8px;
-  border-radius: 8px;
+  border-radius: 32px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width:484px;
 `;
 
+const HeaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
+const WelcomeText = styled.div`
+  font-size: xx-large;
+  font-weight: bold;
+   display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px 0px 0px 0px;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  margin-top: 20px;
+`;
+
+const LoginText = styled.div`
+  font-size: small;
+  padding: 10px 0px 10px 0px;
+  display: flex;
+  text-align: left;
+`;
+
+const Input = styled.input`
+  width: 268px;
+  height: 40px;
+  margin: 5px 0;
+  padding: 5px;
+  border-radius: 16px;
+  border-color: #dfdfdf;
+   &:hover {
+    border-color: gray;}
+`;
+
+const Button = styled.button`
+  width: 268px;
+  height: 40px;
+  margin-top: 20px;
+  background-color: red;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+`;
+
+
 const CloseButton = styled.button`
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
   margin-top: 10px;
+  
 `;
 
 const ForgotText = styled.div`
     font-size: small;
     font-weight: bold;
+    padding: 10px 0px 10px 0px;
     &:hover {
     text-decoration: underline;}
     cursor: pointer;
@@ -61,7 +136,7 @@ const LogoImageIcon = styled.img`
 width: 40px;
 height: 38px;
 margin-bottom: auto;
-
+margin-top: 10px;
 `;
 
 export default LoginModal;
