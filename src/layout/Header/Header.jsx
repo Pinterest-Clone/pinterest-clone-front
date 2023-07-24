@@ -3,10 +3,12 @@ import HeaderLogin from "./HeaderLogin";
 import HeaderLogout from "./HeaderLogout";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import LoginModal from "../../components/Modals/LoginModal";
 
 
 export default function Header(props) {
   const [isLogIn, setLogIn] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const handleLogin = () => {
     setLogIn(true);
@@ -14,6 +16,14 @@ export default function Header(props) {
 
   const handleLogout = () => {
     setLogIn(false);
+  };
+
+  const handleModalOpen = () => {
+    setModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
   };
 
   // const HeaderLogo = () => {
@@ -27,8 +37,9 @@ export default function Header(props) {
       {isLogIn ? (
         <HeaderLogin onLogout={handleLogout} />
       ) : (
-        <HeaderLogout onLogin={handleLogin} />
+        <HeaderLogout onLogin={handleLogin} onModalOpen={handleModalOpen} />
       )}
+      {isModalOpen && <LoginModal onClose={handleModalClose} />}
     </HeaderContainer>
   );
 }
