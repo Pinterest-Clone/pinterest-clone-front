@@ -22,7 +22,7 @@ export default function MyPage() {
   };
 
   return (
-    <>
+    <ProfileOuter>
       <ProfileContentBox>
         <ProfileImg src='' alt='' />
         <ProfileName>abxl</ProfileName>
@@ -112,9 +112,13 @@ export default function MyPage() {
         )}
         */}
       </PinCardContainor>
-    </>
+    </ProfileOuter>
   );
 }
+
+const ProfileOuter = styled.div`
+  margin-top: 100px;
+`
 
 const ContentsWrap = styled.div`
   width: fit-content;
