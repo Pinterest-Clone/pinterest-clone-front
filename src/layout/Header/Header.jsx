@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import HeaderLogin from "./HeaderLogin";
 import HeaderLogout from "./HeaderLogout";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import LoginModal from "../../components/Modals/LoginModal";
 
 
@@ -30,27 +30,40 @@ export default function Header(props) {
   //   window.history.go(0);
   // }
 
-  const navigate = useNavigate();
+  const handleModalLogin = () => {
+    setLogIn(true);
+    setModalOpen(false);
+  };
+
+
 
   return (
     <HeaderContainer>
       {isLogIn ? (
         <HeaderLogin onLogout={handleLogout} />
       ) : (
-        <HeaderLogout onLogin={handleLogin} onModalOpen={handleModalOpen} />
+        <HeaderLogout
+          onLogin={handleLogin}
+          onModalOpen={handleModalOpen}
+          onModalLogin={handleModalLogin}
+        />
       )}
-      {isModalOpen && <LoginModal onClose={handleModalClose} />}
+      {isModalOpen && <LoginModal onClose={handleModalClose} onLogin={handleModalLogin} />}
     </HeaderContainer>
   );
 }
 
 const HeaderContainer = styled.div`
-    display: flex;
-    align-items: center;
-    height: 56px;
-    padding: 12px 4px 4px 6px;
-    background-color: white;
-    color: black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 56px;
+  padding: 12px 4px 4px 6px;
+  background-color: white;
+  color: black;
 
 `;
 
