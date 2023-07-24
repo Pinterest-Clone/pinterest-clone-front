@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Logo from "../../assets/icons/PinterestLogo.png";
 
 
-const HeaderLogout = ({ onLogin }) => {
+const HeaderLogout = ({ onLogin, onModalOpen }) => {
   const handleIntroductionClick = () => {
     window.location.href = "https://help.pinterest.com/ko/guide/all-about-pinterest";
   };
@@ -28,7 +28,11 @@ const HeaderLogout = ({ onLogin }) => {
         <CommonButton onClick={handleIntroductionClick}>소개</CommonButton>
         <CommonButton onClick={handlebusinessClick}>비즈니스</CommonButton>
         <CommonButton onClick={handlepressClick}>언론</CommonButton>
-        <LoginButton onClick={onLogin}>로그인</LoginButton>
+        <LoginButton
+          onClick={() => {
+            onLogin();
+            onModalOpen();
+          }}>로그인</LoginButton>
         <UserAddButton>가입하기</UserAddButton>
       </ButtonWrapper>
     </HeaderLogoutContainer>
