@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "styled-components";
 import jejus from '../../assets/img/jejus.jpg'
 import ten from '../../assets/img/10.jpg'
@@ -14,11 +14,11 @@ export default function HomePage() {
   return (
     <div>
       <PinCardContainor>
-        {imgs.map((image)=>(
+        {imgs.map((image) => (
           <PinCard>
-          <img src={image} alt='하강~'/>
+            <img src={image} alt='하강~' />
           </PinCard>
-          )
+        )
         )}
         <PinCard height={getRandomHeight()}>card3</PinCard>
         <PinCard height={getRandomHeight()}>card4</PinCard>
@@ -51,7 +51,8 @@ const PinCard = styled.div`
   width: 240px;
   border: none;
   border-radius: 12px;
-  height : ${({height})=>height};
+  position: relative;
+  height : ${({ height }) => height};
   background-color: lightgray;
   margin: 12px;
   display: inline-block;
@@ -59,9 +60,15 @@ const PinCard = styled.div`
   img {
     max-width: 100%;
   }
+   &:hover {
+    opacity: 0.7;
+    background-color: black;
+  }
 `
 
 const PinCardContainor = styled.div`
   column-width: 230px;
   margin: 10px 50px 0 50px;
 `
+
+//onmouse? mouse over 사용해서 true false 설정해주기! 

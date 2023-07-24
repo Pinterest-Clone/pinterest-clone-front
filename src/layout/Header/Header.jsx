@@ -26,16 +26,11 @@ export default function Header(props) {
     setModalOpen(false);
   };
 
-  // const HeaderLogo = () => {
-  //   window.history.go(0);
-  // }
 
   const handleModalLogin = () => {
     setLogIn(true);
     setModalOpen(false);
   };
-
-
 
   return (
     <HeaderContainer>
@@ -54,9 +49,9 @@ export default function Header(props) {
 }
 
 const HeaderContainer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
+  box-sizing: border-box;  
+  position: absolute;
+  top:0;  
   width: 100%;
   display: flex;
   align-items: center;
@@ -64,6 +59,7 @@ const HeaderContainer = styled.div`
   padding: 12px 4px 4px 6px;
   background-color: white;
   color: black;
-
+  overflow: hidden;
+  z-index: 1;
 `;
 
