@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "styled-components";
-import jejus from '../../assets/img/jejus.jpg'
-import ten from '../../assets/img/10.jpg'
 import { ReactComponent as AddArrow } from '../../assets/icons/addArrow.svg';
+import { ReactComponent as SelectedBar } from '../../assets/icons/selectedBar.svg';
 
 
 export default function MyPage() {
 
-  const imgs = [jejus, ten];
+  const [ isSelected, setIsSelected ] = useState(false);
+  const [ isClicked, setIsClicked ] = useState(false);
+  
+  const selectToggleHandler = () => {
+    setIsSelected(!isSelected);
+  }
 
+  const clickedToggleHandler = () => {
+    setIsClicked(true);
+  }
 
   const getRandomHeight = () => {
     return Math.floor(Math.random() * (700 - 200 + 1) + 200) + "px"; // 200px부터 500px 사이의 랜덤 높이
@@ -37,53 +44,79 @@ export default function MyPage() {
       </ProfileContentBox>
 
       <PinViewBox>
-        <CreatedPin>생성됨</CreatedPin>
-        <CreatedPin>저장됨</CreatedPin>
+        <div>
+          <CreatedPin onClick={selectToggleHandler}>생성됨</CreatedPin>
+          <SelectedBar>{SelectedBar}</SelectedBar>
+        </div>
+        <div>
+          <CreatedPin onClick={selectToggleHandler}>저장됨</CreatedPin>
+          <SelectedBar>{SelectedBar}</SelectedBar>
+        </div>
       </PinViewBox>
 
       <ContentsWrap>
-        <PinMakeBtn>
+        <PinMakeBtn onClick={clickedToggleHandler}>
           <AddArrow/>
         </PinMakeBtn>
       </ContentsWrap>
         
-
       <PinCardContainor>
-        {imgs.map((image)=>(
+      {isSelected
+        ? 
+        (
+        <>
+          <PinCard height={getRandomHeight()}>card3</PinCard>
+          <PinCard height={getRandomHeight()}>card4</PinCard>
+          <PinCard height={getRandomHeight()}>card5</PinCard>
+          <PinCard height={getRandomHeight()}>card6</PinCard>
+          <PinCard height={getRandomHeight()}>card7</PinCard>
+          <PinCard height={getRandomHeight()}>card8</PinCard>
+          <PinCard height={getRandomHeight()}>card1</PinCard>
+          <PinCard height={getRandomHeight()}>card2</PinCard>
+          <PinCard height={getRandomHeight()}>card3</PinCard>
+          <PinCard height={getRandomHeight()}>card4</PinCard>
+          <PinCard height={getRandomHeight()}>card5</PinCard>
+          <PinCard height={getRandomHeight()}>card6</PinCard>
+          <PinCard height={getRandomHeight()}>card7</PinCard>
+          <PinCard height={getRandomHeight()}>card8</PinCard>
+          <PinCard height={getRandomHeight()}>card5</PinCard>
+          <PinCard height={getRandomHeight()}>card6</PinCard>
+          <PinCard height={getRandomHeight()}>card7</PinCard>
+          <PinCard height={getRandomHeight()}>card8</PinCard>
+        </>
+        )
+        : 
+        (
+        <>
+          <PinCard height={getRandomHeight()}>card3</PinCard>
+          <PinCard height={getRandomHeight()}>card4</PinCard>
+          <PinCard height={getRandomHeight()}>card5</PinCard>
+          <PinCard height={getRandomHeight()}>card6</PinCard>
+          <PinCard height={getRandomHeight()}>card7</PinCard>
+          <PinCard height={getRandomHeight()}>card8</PinCard>
+          <PinCard height={getRandomHeight()}>card1</PinCard>
+          <PinCard height={getRandomHeight()}>card2</PinCard>
+          <PinCard height={getRandomHeight()}>card3</PinCard>
+          <PinCard height={getRandomHeight()}>card4</PinCard>
+          <PinCard height={getRandomHeight()}>card5</PinCard>
+        </>
+        )
+      }
+
+
+        {/* {imgs.map((image)=>(
           <PinCard>
           <img src={image} alt='하강~'/>
           </PinCard>
           )
         )}
-        <PinCard height={getRandomHeight()}>card3</PinCard>
-        <PinCard height={getRandomHeight()}>card4</PinCard>
-        <PinCard height={getRandomHeight()}>card5</PinCard>
-        <PinCard height={getRandomHeight()}>card6</PinCard>
-        <PinCard height={getRandomHeight()}>card7</PinCard>
-        <PinCard height={getRandomHeight()}>card8</PinCard>
-        <PinCard height={getRandomHeight()}>card1</PinCard>
-        <PinCard height={getRandomHeight()}>card2</PinCard>
-        <PinCard height={getRandomHeight()}>card3</PinCard>
-        <PinCard height={getRandomHeight()}>card4</PinCard>
-        <PinCard height={getRandomHeight()}>card5</PinCard>
-        <PinCard height={getRandomHeight()}>card6</PinCard>
-        <PinCard height={getRandomHeight()}>card7</PinCard>
-        <PinCard height={getRandomHeight()}>card8</PinCard>
-        <PinCard height={getRandomHeight()}>card5</PinCard>
-        <PinCard height={getRandomHeight()}>card6</PinCard>
-        <PinCard height={getRandomHeight()}>card7</PinCard>
-        <PinCard height={getRandomHeight()}>card8</PinCard>
-        <PinCard height={getRandomHeight()}>card5</PinCard>
-        <PinCard height={getRandomHeight()}>card6</PinCard>
-        <PinCard height={getRandomHeight()}>card7</PinCard>
-        <PinCard height={getRandomHeight()}>card8</PinCard>
+        */}
       </PinCardContainor>
     </>
   );
 }
 
 const ContentsWrap = styled.div`
-  //position: relative;
   width: fit-content;
   margin-left: auto;
   margin-right: 20px;
@@ -159,14 +192,13 @@ const ProfileBtn = styled.button`
 const PinMakeBtn = styled.div`
     width: 40px;
     height: 40px;
-    //position: absolute;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
 
-    &:hover {
-    background-color:#efefef;
+    &:hover { // 미완성
+    background-color:${props => props.isClicked ?'#000' : '#efefef'};
     border-radius: 50%;
     };
 `
@@ -182,10 +214,10 @@ const PinViewBox = styled.div`
   margin-right: -8px;
 `
 
-const CreatedPin = styled.div`
+const CreatedPin = styled.div` // 미완성
   font-size: 17px;
   font-weight:600;
-  margin: 15px 10px 30px 10px;
+  margin: 15px 10px 0 10px;
   padding: 12px;
   cursor: pointer;
   &:hover {
@@ -200,7 +232,7 @@ const PinCardContainor = styled.div`
   gap: 20px;
 `
 
-const PinCard = styled.div`
+const PinCard = styled.div` // 미완성
   width: 240px;
   border: none;
   border-radius: 12px;
@@ -211,5 +243,9 @@ const PinCard = styled.div`
   overflow: hidden;
   img {
     max-width: 100%;
+
+    &:hover {
+      filter: brightness(50%);
+    }
   }
 ` 
