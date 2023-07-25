@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from "styled-components";
-// import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll';
 import { FullPage, Slide } from 'react-full-page';
 
 const IntroPage = () => {
