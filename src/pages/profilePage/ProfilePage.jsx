@@ -1,27 +1,35 @@
 import React, { useState } from "react";
 import { styled } from "styled-components";
 import { ReactComponent as AddArrow } from '../../assets/icons/addArrow.svg';
-import { ReactComponent as SelectedBar } from '../../assets/icons/selectedBar.svg';
 import { useNavigate } from 'react-router-dom';
 
-
 export default function MyPage() {
+  const [isCreatedSelected, setIsCreatedSelected] = useState(true);
+  const [isSavedSelected, setIsSavedSelected] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
 
-  const [ isSelected, setIsSelected ] = useState(false);
-  const [ isClicked, setIsClicked ] = useState(false);
-  
   const navigate = useNavigate();
 
-  const selectToggleHandler = (selected) => {
-    setIsSelected(!selected);
-  }
+  const createdToggleHandler = () => {
+    // 기존 상태가 선택된 상태일 때에만 토글되지 않도록 변경
+    if (!isCreatedSelected) {
+      setIsCreatedSelected(true);
+      setIsSavedSelected(false);
+    }
+  };
 
+  const savedToggleHandler = () => {
+    // 기존 상태가 선택된 상태일 때에만 토글되지 않도록 변경
+    if (!isSavedSelected) {
+      setIsSavedSelected(true);
+      setIsCreatedSelected(false);
+    }
+  };
+  
   const clickedToggleHandler = () => {
-    setIsClicked(true);
+    setIsClicked((prevIsClicked) => !prevIsClicked);
     navigate('/make');
   }
-
-  
 
   const getRandomHeight = () => {
     return Math.floor(Math.random() * (700 - 200 + 1) + 200) + "px"; // 200px부터 700px 사이의 랜덤 높이
@@ -34,29 +42,29 @@ export default function MyPage() {
         <ProfileName>abxl</ProfileName>
         <ProfileId>{`@abxl`}</ProfileId>
         
-        <ContentContainor>
+        <ContentContainer>
           <ProfileWeb>
             <a href="https://abxl-l.tistory.com/">
             abxl-l.tistory.com
             </a>
             </ProfileWeb>·
           <ProfileComment>핀터레스트 처음 써 봅니다.</ProfileComment>
-        </ContentContainor>
+        </ContentContainer>
         <div>팔로잉 0명</div>
         <ProfileBtnSet>
           <ProfileBtn>공유</ProfileBtn>
-          <ProfileBtn>프로필 수정</ProfileBtn>
+          <ProfileBtn onClick={()=>navigate('/profile/edit/:userid')}>프로필 수정</ProfileBtn>
         </ProfileBtnSet>
       </ProfileContentBox>
 
       <PinViewBox>
         <div>
-          <CreatedPin isSelected={isSelected} onClick={()=>selectToggleHandler(isSelected)}>생성됨</CreatedPin>
-          <div className="selectBar" $isSelected={isSelected}>1</div>
+          <CreatedPin isSelected={isCreatedSelected} onClick={createdToggleHandler}>생성됨</CreatedPin>
+          <SelectedBar isSelected={isCreatedSelected}></SelectedBar>
         </div>
         <div>
-          <CreatedPin isSelected={isSelected} onClick={()=>selectToggleHandler(isSelected)}>저장됨</CreatedPin>
-          <div className="selectBar" $isSelected={isSelected}>1</div>
+          <CreatedPin isSelected={isSavedSelected} onClick={savedToggleHandler}>저장됨</CreatedPin>
+          <SelectedBar isSelected={isSavedSelected}></SelectedBar>
         </div>
       </PinViewBox>
 
@@ -66,57 +74,34 @@ export default function MyPage() {
         </PinMakeBtn>
       </ContentsWrap>
         
-      <PinCardContainor>
-      {isSelected
-        ? 
-        (
-        <>
-          <PinCard height={getRandomHeight()}>card3</PinCard>
-          <PinCard height={getRandomHeight()}>card4</PinCard>
-          <PinCard height={getRandomHeight()}>card5</PinCard>
-          <PinCard height={getRandomHeight()}>card6</PinCard>
-          <PinCard height={getRandomHeight()}>card7</PinCard>
-          <PinCard height={getRandomHeight()}>card8</PinCard>
-          <PinCard height={getRandomHeight()}>card1</PinCard>
-          <PinCard height={getRandomHeight()}>card2</PinCard>
-          <PinCard height={getRandomHeight()}>card3</PinCard>
-          <PinCard height={getRandomHeight()}>card4</PinCard>
-          <PinCard height={getRandomHeight()}>card5</PinCard>
-          <PinCard height={getRandomHeight()}>card6</PinCard>
-          <PinCard height={getRandomHeight()}>card7</PinCard>
-          <PinCard height={getRandomHeight()}>card8</PinCard>
-          <PinCard height={getRandomHeight()}>card5</PinCard>
-          <PinCard height={getRandomHeight()}>card6</PinCard>
-          <PinCard height={getRandomHeight()}>card7</PinCard>
-          <PinCard height={getRandomHeight()}>card8</PinCard>
-        </>
-        )
-        : 
-        (
-        <>
-          <PinCard height={getRandomHeight()}>card3</PinCard>
-          <PinCard height={getRandomHeight()}>card4</PinCard>
-          <PinCard height={getRandomHeight()}>card5</PinCard>
-          <PinCard height={getRandomHeight()}>card6</PinCard>
-          <PinCard height={getRandomHeight()}>card7</PinCard>
-          <PinCard height={getRandomHeight()}>card8</PinCard>
-          <PinCard height={getRandomHeight()}>card1</PinCard>
-          <PinCard height={getRandomHeight()}>card2</PinCard>
-          <PinCard height={getRandomHeight()}>card3</PinCard>
-          <PinCard height={getRandomHeight()}>card4</PinCard>
-        </>
-        )
-      }
-
-
-        {/* {imgs.map((image)=>(
-          <PinCard>
-          <img src={image} alt='하강~'/>
-          </PinCard>
-          )
+      <PinCardContainer>
+        {(!isCreatedSelected && !isSavedSelected) && ( // 선택이 아무것도 안된 경우
+          <>
+            <PinCard height={getRandomHeight()}>card1 생성됨</PinCard>
+            <PinCard height={getRandomHeight()}>card2 생성됨</PinCard>
+            <PinCard height={getRandomHeight()}>card3 생성됨</PinCard>
+            {/* ... 생성됨 버튼에 따른 다른 카드들 */}
+          </>
         )}
-        */}
-      </PinCardContainor>
+
+        {isCreatedSelected && ( // 생성됨 버튼이 선택된 경우
+          <>
+            <PinCard height={getRandomHeight()}>card1 생성됨</PinCard>
+            <PinCard height={getRandomHeight()}>card2 생성됨</PinCard>
+            <PinCard height={getRandomHeight()}>card3 생성됨</PinCard>
+            {/* ... 생성됨 버튼에 따른 다른 카드들 */}
+          </>
+        )}
+
+        {isSavedSelected && ( // 저장됨 버튼이 선택된 경우
+          <>
+            <PinCard height={getRandomHeight()}>card1 저장됨</PinCard>
+            <PinCard height={getRandomHeight()}>card2 저장됨</PinCard>
+            <PinCard height={getRandomHeight()}>card3 저장됨</PinCard>
+            {/* ... 저장됨 버튼에 따른 다른 카드들 */}
+          </>
+        )}
+      </PinCardContainer> 
     </ProfileOuter>
   );
 }
@@ -159,7 +144,7 @@ const ProfileId = styled.div`
   color: #7a7a7a;
 `
 
-const ContentContainor = styled.div`
+const ContentContainer = styled.div`
   display: flex;
 `
 
@@ -223,32 +208,41 @@ const PinViewBox = styled.div`
   flex-direction: row;
   margin-left: -8px;
   margin-right: -8px;
-
-  & > div { 
-    .selectBar{
-      width: 100%;
-      height: 5px;
-      border-radius: 5px;
-      background: ${({$isSelected})=>$isSelected ? "black" : "none"};
-    }
-  }
 `
 
-const CreatedPin = styled.div` // 미완성
+
+const CreatedPin = styled.div`
   font-size: 17px;
-  font-weight:600;
+  font-weight: 600;
   margin: 15px 10px 0 10px;
   padding: 12px;
   cursor: pointer;
+  // background-color: ${({ isSelected }) => (isSelected ? '#efefef' : 'none')};
+  border-radius: 10px;
 
   &:hover {
-    // background-color : ${({isSelected})=> isSelected ? 'none' : "#efefef"};
-    background-color :#efefef;
-    border-radius: 10px;
+    background-color: ${({ isSelected }) => (isSelected ? 'none' : '#efefef')};
   }
-`
+`;
 
-const PinCardContainor = styled.div`
+const SelectedBar = styled.div`
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 60%;
+  height: 3px;
+  border-radius: 5px;
+  background: ${(props) => (props.isSelected ? "black" : "none")};
+  margin: 0 auto; // 가로 방향으로 중앙 정렬
+
+  &:hover {
+    background: none; // 선택된 상태에서 hover 효과 없음
+  }
+`;
+
+
+
+const PinCardContainer = styled.div`
   column-width: 230px;
   margin: 10px 50px 0 50px;
   gap: 20px;
