@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Logo from "../../assets/icons/PinterestLogo.png";
+import SignUpModal from "../../components/Modals/SignUpModal";
 
 
 const HeaderLogout = ({ onLogin, onModalOpen, onModalLogin }) => {
+  const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
+
   const handleIntroductionClick = () => {
     window.location.href = "https://help.pinterest.com/ko/guide/all-about-pinterest";
   };
@@ -14,6 +17,10 @@ const HeaderLogout = ({ onLogin, onModalOpen, onModalLogin }) => {
 
   const handlepressClick = () => {
     window.location.href = "https://newsroom.pinterest.com/en";
+  };
+
+  const handleOpenSignUpModal = () => {
+    setSignUpModalOpen(true);
   };
 
   return (
@@ -32,8 +39,9 @@ const HeaderLogout = ({ onLogin, onModalOpen, onModalLogin }) => {
           onClick={() => {
             onModalOpen();
           }}>로그인</LoginButton>
-        <UserAddButton>가입하기</UserAddButton>
+        <UserAddButton onClick={handleOpenSignUpModal}>가입하기</UserAddButton>
       </ButtonWrapper>
+      {isSignUpModalOpen && <SignUpModal onClose={() => setSignUpModalOpen(false)} />}
     </HeaderLogoutContainer>
   );
 };
