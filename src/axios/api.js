@@ -6,7 +6,6 @@ export const instance = axios.create({
 
 instance.interceptors.request.use(
   function (config) {
-    
     // 로컬 스토리지에서 토큰 값 가져오기
     const token = localStorage.getItem("token");
 
