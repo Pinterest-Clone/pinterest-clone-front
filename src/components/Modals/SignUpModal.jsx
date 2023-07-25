@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import Logo from "../../assets/icons/PinterestLogoLogin.png"
 
-const LoginModal = ({ onClose, onLogin }) => {
+const SignUpModal = ({ onClose, onSignUp }) => {
   const [isModalLogIn, setModalLogIn] = useState(false);
+  const [dateOfBirth, setDateOfBirth] = useState(null);
 
   const handleModalLogin = () => {
     // 로그인 폼과 관련된 로직을 구현합니다.
@@ -16,6 +19,11 @@ const LoginModal = ({ onClose, onLogin }) => {
     setModalLogIn(false);
   };
 
+  const handleDateOfBirthChange = (date) => {
+    setDateOfBirth(date);
+  };
+
+
   return (
     <ModalOverlay>
       <ModalContent>
@@ -24,13 +32,21 @@ const LoginModal = ({ onClose, onLogin }) => {
           <CloseButton onClick={handleCloseModal}>X</CloseButton>
         </HeaderContainer>
         <WelcomeText>Pinterest에 오신 것을 <br />환영합니다</WelcomeText>
+        <TryText>시도해 볼 만한 새로운 아이디어 찾기</TryText>
         <Form>
           <LoginText>이메일</LoginText>
           <Input type="text" placeholder="이메일" />
           <LoginText>비밀번호</LoginText>
           <Input type="password" placeholder="비밀번호" />
-          <ForgotText>비밀번호를 잊으셨나요?</ForgotText>
-          <Button type="submit" onClick={handleModalLogin}>로그인</Button>
+          <LoginText>생년월일</LoginText>
+          <DatePickerInput
+            selected={dateOfBirth}
+            onChange={handleDateOfBirthChange}
+            dateFormat="yyyy-MM-dd"
+            placeholderText="생년월일을 선택하세요"
+          />
+          <Button type="submit" onClick={handleModalLogin}>계속하기</Button>
+          <TryText>또는</TryText>
           <FacebookButton>Facebook으로 로그인하기</FacebookButton>
         </Form>
       </ModalContent>
@@ -77,11 +93,17 @@ const WelcomeText = styled.div`
   padding: 20px 0px 0px 0px;
 `;
 
+const TryText = styled.div`
+  font-size: medium;
+  padding: 10px 0px 0px 0px;
+  text-align: center;
+`
+
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   /* align-items: center; */
-  margin-top: 20px;
+  margin: 20px;
 `;
 
 const LoginText = styled.div`
@@ -105,8 +127,21 @@ const Input = styled.input`
 const Button = styled.button`
   width: 268px;
   height: 40px;
-  margin: 20px auto;
+  margin: 20px auto ;
   background-color: red;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  /* display: block; */
+`;
+
+const FacebookButton = styled.button`
+  width: 268px;
+  height: 40px;
+  margin: 10px auto;
+  background-color: #3b5998; 
   border-radius: 20px;
   color: white;
   font-weight: bold;
@@ -114,18 +149,6 @@ const Button = styled.button`
   border: none;
 `;
 
-const FacebookButton = styled.button`
-  width: 268px;
-  height: 40px;
-  margin-top: 10px;
-  background-color: #3b5998; /* Facebook blue color */
-  border-radius: 20px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
-  display: block; /* Ensure the button takes the full width of its container */
-`;
 
 const CloseButton = styled.button`
   border: none;
@@ -136,14 +159,19 @@ const CloseButton = styled.button`
   
 `;
 
-const ForgotText = styled.div`
-    font-size: small;
-    font-weight: bold;
-    padding: 10px 0px 10px 0px;
-    &:hover {
-    text-decoration: underline;}
-    cursor: pointer;
+const DatePickerInput = styled(DatePicker)`
+  width: 268px;
+  height: 35px;
+  margin: 5px 0;
+  padding: 5px;
+  border-radius: 16px;
+  border-color: #dfdfdf;
+  &:hover {
+    border-color: gray;
+  }
 `;
+
+
 
 const LogoImageIcon = styled.img`
 width: 40px;
@@ -152,6 +180,4 @@ margin-bottom: auto;
 margin-top: 10px;
 `;
 
-export default LoginModal;
-
-//리다이렉션 쏴서 토큰 받아서 쿠키 저장
+export default SignUpModal;
