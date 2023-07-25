@@ -46,8 +46,9 @@ const SignUpModal = ({ onClose, onSignUp }) => {
             placeholderText="생년월일을 선택하세요"
           />
           <Button type="submit" onClick={handleModalLogin}>계속하기</Button>
-          <TryText>또는</TryText>
+          <OrText>또는</OrText>
           <FacebookButton>Facebook으로 로그인하기</FacebookButton>
+          <GoogleButton>Google로 로그인하기</GoogleButton>
         </Form>
       </ModalContent>
     </ModalOverlay>
@@ -98,6 +99,13 @@ const TryText = styled.div`
   padding: 10px 0px 0px 0px;
   text-align: center;
 `
+const OrText = styled.div`
+  font-size: small;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  font-weight: bold;
+`
 
 const Form = styled.form`
   display: flex;
@@ -147,6 +155,19 @@ const FacebookButton = styled.button`
   font-weight: bold;
   cursor: pointer;
   border: none;
+`;
+
+const GoogleButton = styled.button`
+  width: 268px;
+  height: 40px;
+  margin: auto;
+  background-color: #4285f4; /* Google blue color */
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  display: block; /* Ensure the button takes the full width of its container */
 `;
 
 
