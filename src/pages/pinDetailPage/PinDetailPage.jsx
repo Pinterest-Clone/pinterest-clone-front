@@ -1,31 +1,89 @@
-import React from "react";
-import { styled } from "styled-components";
+import React, { useEffect, useRef, useState } from "react";
+import * as Styled from "./style";
+import Reply from "./Reply";
+
+import { ReactComponent as Smile } from "../../assets/icons/smile.svg";
+import { ReactComponent as Down } from "../../assets/icons/triangleDown.svg";
+import { ReactComponent as Dots } from "../../assets/icons/dots.svg";
+import { ReactComponent as Link } from "../../assets/icons/link.svg";
+import { ReactComponent as Share } from "../../assets/icons/share.svg";
+import { ReactComponent as ArrowDown } from "../../assets/icons/arrowDown.svg";
+
+import EmojiPicker from "emoji-picker-react";
 
 export default function PinDetailPage() {
+  const [showEmojiBox, setShowEmojiBox] = useState(false);
+  const emojiPickerRef = useRef(null);
+
+  useEffect(() => {
+    // figure 요소의 높이 계산
+    const pinImgHeight = document.getElementById("pin-image").clientHeight;
+
+    // figure 높이를 기준으로 section 요소의 최대 높이 설정
+    const sectionElement = document.getElementById("pin-desc");
+
+    if (sectionElement) {
+      sectionElement.style.maxHeight = `${pinImgHeight}px`;
+    }
+
+    // 바깥 영역 클릭 이벤트 리스너 추가
+    document.addEventListener("click", handleOutsideClick);
+
+    // 컴포넌트가 unmount될 때 이벤트 리스너 제거
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
+
+  const onClickEmojiButtonHandler = (event) => {
+    event.stopPropagation(); // 이벤트 중단
+    setShowEmojiBox((prevShowEmojiBox) => !prevShowEmojiBox);
+  };
+
+  const handleOutsideClick = (event) => {
+    if (
+      emojiPickerRef.current &&
+      !emojiPickerRef.current.contains(event.target)
+    ) {
+      setShowEmojiBox(false);
+    }
+  };
+
   return (
-    <Detailmain>
-      <DetailArticle>
+    <Styled.Detailmain>
+      <Styled.DetailArticle>
         <figure>
           <img
-            src="https://i.pinimg.com/564x/ae/79/58/ae7958c658065b4090f2610429ece419.jpg"
+            id="pin-image"
+            src="https://blog.kakaocdn.net/dn/5UYz8/btq4diRXkGE/HkHufR4G8X4bIX3h3lNjck/img.jpg"
+            // src="https://i.pinimg.com/564x/5c/8f/a8/5c8fa873f3f824a6b51513508c90f440.jpg"
+            // src="https://i.pinimg.com/564x/99/63/ff/9963ff14e2e1b62a9cf2b3a6f115a828.jpg"
             alt=""
           />
         </figure>
-        <section>
-          <DetailHeadNav>
+        <section id="pin-desc">
+          <Styled.DetailHeadNav>
             <div>
-              <button>...</button>
-              <button>공유</button>
-              <button>🔗</button>
+              <button>
+                <Dots />
+              </button>
+              <button>
+                <Share />
+              </button>
+              <button>
+                <Link />
+              </button>
             </div>
-            <button>저장 ▼</button>
-          </DetailHeadNav>
-          <DetailContentBox>
-            <DetailPinInfo>
+            <button>
+              저장 <ArrowDown />
+            </button>
+          </Styled.DetailHeadNav>
+          <Styled.DetailContentBox>
+            <Styled.DetailPinInfo>
               <h1>제목</h1>
               <p>내용내용</p>
-            </DetailPinInfo>
-            <DetailUserInfo>
+            </Styled.DetailPinInfo>
+            <Styled.DetailUserInfo>
               <figure>
                 <div>
                   <img src="" alt="" />
@@ -36,92 +94,32 @@ export default function PinDetailPage() {
                 </figcaption>
               </figure>
               <button>팔로우</button>
-            </DetailUserInfo>
-            <DetailReplyBox>
-              <button>댓글 ▼</button>
+            </Styled.DetailUserInfo>
+            <Styled.DetailReplyBox>
+              {false ? (
+                <div>댓글</div>
+              ) : (
+                <div>
+                  댓글{" "}
+                  <button>
+                    <ArrowDown />
+                  </button>
+                </div>
+              )}
               {false ? (
                 <p>
                   아직 댓글이 없습니다. 대화를 시작하려면 하나를 추가하세요.
                 </p>
               ) : (
-                <DetailReplyList>
-                  <DetailReplyItem>
-                    <figure>
-                      <div>
-                        <img src="" alt="" />
-                      </div>
-                      <figcaption>
-                        <div>
-                          <span>작성자</span>
-                          <span>댓글내용</span>
-                        </div>
-                        <div>
-                          <span>5주 전</span>
-                          <button>🤍</button>
-                          <button>...</button>
-                        </div>
-                      </figcaption>
-                    </figure>
-                  </DetailReplyItem>
-                  <DetailReplyItem>
-                    <figure>
-                      <div>
-                        <img src="" alt="" />
-                      </div>
-                      <figcaption>
-                        <div>
-                          <span>작성자</span>
-                          <span>댓글내용</span>
-                        </div>
-                        <div>
-                          <span>5주 전</span>
-                          <button>🤍</button>
-                          <button>...</button>
-                        </div>
-                      </figcaption>
-                    </figure>
-                  </DetailReplyItem>
-                  <DetailReplyItem>
-                    <figure>
-                      <div>
-                        <img src="" alt="" />
-                      </div>
-                      <figcaption>
-                        <div>
-                          <span>작성자</span>
-                          <span>댓글내용</span>
-                        </div>
-                        <div>
-                          <span>5주 전</span>
-                          <button>🤍</button>
-                          <button>...</button>
-                        </div>
-                      </figcaption>
-                    </figure>
-                  </DetailReplyItem>
-                  <DetailReplyItem>
-                    <figure>
-                      <div>
-                        <img src="" alt="" />
-                      </div>
-                      <figcaption>
-                        <div>
-                          <span>작성자</span>
-                          <span>댓글내용</span>
-                        </div>
-                        <div>
-                          <span>5주 전</span>
-                          <button>🤍</button>
-                          <button>...</button>
-                        </div>
-                      </figcaption>
-                    </figure>
-                  </DetailReplyItem>
-                </DetailReplyList>
+                <Styled.DetailReplyList>
+                  <Reply />
+                  <Reply />
+                  <Reply />
+                </Styled.DetailReplyList>
               )}
-            </DetailReplyBox>
-          </DetailContentBox>
-          <DetailAddBox>
+            </Styled.DetailReplyBox>
+          </Styled.DetailContentBox>
+          <Styled.DetailAddBox>
             <div>
               <div className="row">
                 {false ? <h3>어떠셨나요?</h3> : <h3>댓글 3개</h3>}
@@ -131,200 +129,26 @@ export default function PinDetailPage() {
                 <figure>
                   <img src="" alt="" />
                 </figure>
-                <DetailAddInputBox>
+                <Styled.DetailAddInputBox>
                   <input type="text" />
-                  <button>😍</button>
-                </DetailAddInputBox>
+                  <button
+                    onClick={onClickEmojiButtonHandler}
+                    className={showEmojiBox ? "emojiButtonActive" : ""}
+                  >
+                    <Smile fill="gray" />
+                  </button>
+                  {showEmojiBox && (
+                    <div id="emojiBox" ref={emojiPickerRef}>
+                      <Down />
+                      <EmojiPicker height="400px" />
+                    </div>
+                  )}
+                </Styled.DetailAddInputBox>
               </div>
             </div>
-          </DetailAddBox>
+          </Styled.DetailAddBox>
         </section>
-      </DetailArticle>
-    </Detailmain>
+      </Styled.DetailArticle>
+    </Styled.Detailmain>
   );
 }
-
-const Detailmain = styled.main`
-  display: flex;
-  justify-content: center;
-  margin-bottom: 300px;
-`;
-
-const DetailArticle = styled.article`
-  display: flex;
-  width: 60%;
-  max-height: 900px;
-  border-radius: 20px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-
-  & > figure {
-    flex: 1;
-    overflow: hidden;
-    border-radius: 20px 0 0 20px;
-  }
-
-  section {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    background: #f9f9f9;
-    border-radius: 0 20px 0 20px;
-  }
-`;
-
-const DetailHeadNav = styled.nav`
-  position: sticky;
-  top: 0;
-  display: flex;
-  justify-content: space-between;
-  padding: 30px;
-  background: #f9f9f9;
-
-  & button {
-    min-width: 60px;
-    min-height: 40px;
-    border: none;
-    cursor: pointer;
-  }
-`;
-
-const DetailContentBox = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
-  gap: 40px;
-  padding: 0 30px;
-`;
-
-const DetailPinInfo = styled.nav`
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-
-  h1 {
-    font-size: 24px;
-    font-weight: 700;
-  }
-`;
-
-const DetailUserInfo = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  figure {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    div {
-      min-width: 40px;
-      min-height: 40px;
-      border-radius: 50%;
-      background: black;
-    }
-
-    figcaption {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-  }
-`;
-
-const DetailReplyBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-
-  & > button {
-    width: 100px;
-  }
-`;
-
-const DetailReplyList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-
-const DetailReplyItem = styled.li`
-  figure {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    & > div {
-      min-width: 35px;
-      min-height: 35px;
-      border-radius: 50%;
-      background: black;
-    }
-
-    figcaption {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-  }
-`;
-
-const DetailAddBox = styled.div`
-  position: sticky;
-  bottom: 0;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 30px;
-  background: #f9f9f9;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  border-top: 1px solid gray;
-  padding-top: 20px;
-
-  .row:first-child {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-
-  .row:last-child {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    figure {
-      min-width: 35px;
-      min-height: 35px;
-      border-radius: 50%;
-      background: black;
-    }
-  }
-`;
-
-const DetailAddInputBox = styled.div`
-  box-sizing: border-box;
-  padding: 5px;
-  background: gray;
-  border-radius: 20px;
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-
-  input {
-    width: 100%;
-    border: none;
-    background: none;
-    padding: 5px 5px 5px 10px;
-  }
-
-  input:focus {
-    outline: none;
-  }
-
-  button {
-    border: none;
-    background: none;
-  }
-`;

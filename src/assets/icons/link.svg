@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<svg fill="none" height="48" viewBox="0 0 48 48" 
+width="48" xmlns="http://www.w3.org/2000/svg">
+<rect height="18" rx="2" stroke="black" 
+stroke-linejoin="round" stroke-width="3" 
+transform="rotate(45 34.6074 3.4939)" 
+width="14" x="34.6074" y="3.4939"/>
+<rect height="18" rx="2" stroke="black" 
+stroke-linejoin="round" stroke-width="3" 
+transform="rotate(45 16.2227 21.8787)" 
+width="14" x="16.2227" y="21.8787"/>
+<path d="M31.0723 16.929L16.9301 31.0711" 
+stroke="black" stroke-linecap="round" 
+stroke-linejoin="round" stroke-width="3"/></svg>
