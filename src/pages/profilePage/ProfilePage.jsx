@@ -1,19 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "styled-components";
-import jejus from '../../assets/img/jejus.jpg'
-import ten from '../../assets/img/10.jpg'
+import { ReactComponent as AddArrow } from '../../assets/icons/addArrow.svg';
+import { ReactComponent as SelectedBar } from '../../assets/icons/selectedBar.svg';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function MyPage() {
 
-  const imgs = [jejus, ten];
+  const [ isSelected, setIsSelected ] = useState(false);
+  const [ isClicked, setIsClicked ] = useState(false);
+  
+  const navigate = useNavigate();
 
+  const selectToggleHandler = (selected) => {
+    setIsSelected(!selected);
+  }
+
+  const clickedToggleHandler = () => {
+    setIsClicked(true);
+    navigate('/make');
+  }
 
   const getRandomHeight = () => {
-    return Math.floor(Math.random() * (700 - 200 + 1) + 200) + "px"; // 200px부터 500px 사이의 랜덤 높이
+    return Math.floor(Math.random() * (700 - 200 + 1) + 200) + "px"; // 200px부터 700px 사이의 랜덤 높이
   };
 
   return (
-    <>
+    <ProfileOuter>
       <ProfileContentBox>
         <ProfileImg src='' alt='' />
         <ProfileName>abxl</ProfileName>
@@ -35,50 +48,87 @@ export default function MyPage() {
       </ProfileContentBox>
 
       <PinViewBox>
-        <CreatedPin>생성됨</CreatedPin>
-        <CreatedPin>저장됨</CreatedPin>
+        <div>
+          <CreatedPin isSelected={isSelected} onClick={()=>selectToggleHandler(isSelected)}>생성됨</CreatedPin>
+          <div className="selectBar" $isSelected={isSelected}>1</div>
+        </div>
+        <div>
+          <CreatedPin isSelected={isSelected} onClick={()=>selectToggleHandler(isSelected)}>저장됨</CreatedPin>
+          <div className="selectBar" $isSelected={isSelected}>1</div>
+        </div>
       </PinViewBox>
 
-      <PinMakeBtnWrap>
-        <div>
-          <PinMakeBtn></PinMakeBtn>
-        </div>
-      </PinMakeBtnWrap>
-      
-
+      <ContentsWrap>
+        <PinMakeBtn onClick={clickedToggleHandler} isClicked={isClicked}>
+          <AddArrow style={{ fill: isClicked ? '#efefef' : '#000' ,}} />
+        </PinMakeBtn>
+      </ContentsWrap>
+        
       <PinCardContainor>
-        {imgs.map((image)=>(
+      {isSelected
+        ? 
+        (
+        <>
+          <PinCard height={getRandomHeight()}>card3</PinCard>
+          <PinCard height={getRandomHeight()}>card4</PinCard>
+          <PinCard height={getRandomHeight()}>card5</PinCard>
+          <PinCard height={getRandomHeight()}>card6</PinCard>
+          <PinCard height={getRandomHeight()}>card7</PinCard>
+          <PinCard height={getRandomHeight()}>card8</PinCard>
+          <PinCard height={getRandomHeight()}>card1</PinCard>
+          <PinCard height={getRandomHeight()}>card2</PinCard>
+          <PinCard height={getRandomHeight()}>card3</PinCard>
+          <PinCard height={getRandomHeight()}>card4</PinCard>
+          <PinCard height={getRandomHeight()}>card5</PinCard>
+          <PinCard height={getRandomHeight()}>card6</PinCard>
+          <PinCard height={getRandomHeight()}>card7</PinCard>
+          <PinCard height={getRandomHeight()}>card8</PinCard>
+          <PinCard height={getRandomHeight()}>card5</PinCard>
+          <PinCard height={getRandomHeight()}>card6</PinCard>
+          <PinCard height={getRandomHeight()}>card7</PinCard>
+          <PinCard height={getRandomHeight()}>card8</PinCard>
+        </>
+        )
+        : 
+        (
+        <>
+          <PinCard height={getRandomHeight()}>card3</PinCard>
+          <PinCard height={getRandomHeight()}>card4</PinCard>
+          <PinCard height={getRandomHeight()}>card5</PinCard>
+          <PinCard height={getRandomHeight()}>card6</PinCard>
+          <PinCard height={getRandomHeight()}>card7</PinCard>
+          <PinCard height={getRandomHeight()}>card8</PinCard>
+          <PinCard height={getRandomHeight()}>card1</PinCard>
+          <PinCard height={getRandomHeight()}>card2</PinCard>
+          <PinCard height={getRandomHeight()}>card3</PinCard>
+          <PinCard height={getRandomHeight()}>card4</PinCard>
+        </>
+        )
+      }
+
+
+        {/* {imgs.map((image)=>(
           <PinCard>
           <img src={image} alt='하강~'/>
           </PinCard>
           )
         )}
-        <PinCard height={getRandomHeight()}>card3</PinCard>
-        <PinCard height={getRandomHeight()}>card4</PinCard>
-        <PinCard height={getRandomHeight()}>card5</PinCard>
-        <PinCard height={getRandomHeight()}>card6</PinCard>
-        <PinCard height={getRandomHeight()}>card7</PinCard>
-        <PinCard height={getRandomHeight()}>card8</PinCard>
-        <PinCard height={getRandomHeight()}>card1</PinCard>
-        <PinCard height={getRandomHeight()}>card2</PinCard>
-        <PinCard height={getRandomHeight()}>card3</PinCard>
-        <PinCard height={getRandomHeight()}>card4</PinCard>
-        <PinCard height={getRandomHeight()}>card5</PinCard>
-        <PinCard height={getRandomHeight()}>card6</PinCard>
-        <PinCard height={getRandomHeight()}>card7</PinCard>
-        <PinCard height={getRandomHeight()}>card8</PinCard>
-        <PinCard height={getRandomHeight()}>card5</PinCard>
-        <PinCard height={getRandomHeight()}>card6</PinCard>
-        <PinCard height={getRandomHeight()}>card7</PinCard>
-        <PinCard height={getRandomHeight()}>card8</PinCard>
-        <PinCard height={getRandomHeight()}>card5</PinCard>
-        <PinCard height={getRandomHeight()}>card6</PinCard>
-        <PinCard height={getRandomHeight()}>card7</PinCard>
-        <PinCard height={getRandomHeight()}>card8</PinCard>
+        */}
       </PinCardContainor>
-    </>
+    </ProfileOuter>
   );
 }
+
+const ProfileOuter = styled.div`
+  margin-top: 100px;
+`
+
+const ContentsWrap = styled.div`
+  width: fit-content;
+  margin-left: auto;
+  margin-right: 20px;
+  padding-bottom: 100px;
+`
 
 const ProfileContentBox = styled.div`
   display: flex;
@@ -125,7 +175,7 @@ const ProfileWeb = styled.div`
 `
 
 const ProfileComment = styled.div`
-  margin-left: 5px;
+  margin-left: auto;
 `
 
 const ProfileBtnSet = styled.div`
@@ -144,47 +194,26 @@ const ProfileBtn = styled.button`
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-
-`
-
-const PinMakeBtnWrap = styled.div`
-  position: relative; /* 부모 요소를 relative로 설정합니다. */
-  margin: 10px 10px 90px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  div {
-    box-sizing: border-box;
-    width: 24px;
-    height: 24px;
-    display: flex;
-
-    &:hover {
-    background-color:#efefef;
-    border-radius: 12px;
-    };
-
-    &::before {
-      content: "";
-      position: absolute;
-      right: 50%;
-      width: 20px;
-      height: 20px;
-      -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M 22 10 h -8 V 2 a 2 2 0 0 0 -4 0 v 8 H 2 a 2 2 0 0 0 0 4 h 8 v 8 a 2 2 0 0 0 4 0 v -8 h 8 a 2 2 0 0 0 0 -4'/></svg>");
-      -webkit-mask-repeat: no-repeat;
-      -webkit-mask-size: 100% 100%;
-      background-color: #000; 
-    }
-  }
 `
 
 const PinMakeBtn = styled.div`
-  
+    width: 40px;
+    height: 40px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover { // 미완성
+    background-color:${(props) => props.isClicked ?'#000' : '#efefef'};
+    border-radius: 50%;
+    };
 `
 
 const PinViewBox = styled.div`
+  box-sizing: border-box;
   width: 100%;
+  height: 45px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -192,16 +221,27 @@ const PinViewBox = styled.div`
   flex-direction: row;
   margin-left: -8px;
   margin-right: -8px;
+
+  & > div { 
+    .selectBar{
+      width: 100%;
+      height: 5px;
+      border-radius: 5px;
+      background: ${({$isSelected})=>$isSelected ? "black" : "none"};
+    }
+  }
 `
 
-const CreatedPin = styled.div`
+const CreatedPin = styled.div` // 미완성
   font-size: 17px;
   font-weight:600;
-  margin: 15px 10px 30px 10px;
+  margin: 15px 10px 0 10px;
   padding: 12px;
   cursor: pointer;
+
   &:hover {
-    background-color: #efefef;
+    // background-color : ${({isSelected})=> isSelected ? 'none' : "#efefef"};
+    background-color :#efefef;
     border-radius: 10px;
   }
 `
@@ -209,13 +249,15 @@ const CreatedPin = styled.div`
 const PinCardContainor = styled.div`
   column-width: 230px;
   margin: 10px 50px 0 50px;
+  gap: 20px;
 `
 
 const PinCard = styled.div`
+  // 미완성
   width: 240px;
   border: none;
   border-radius: 12px;
-  height : ${({height})=>height};
+  height: ${({ height }) => height};
   background-color: lightgray;
   margin: 12px;
   display: inline-block;
@@ -223,4 +265,9 @@ const PinCard = styled.div`
   img {
     max-width: 100%;
   }
-` 
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+`;

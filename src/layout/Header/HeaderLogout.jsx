@@ -1,28 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Logo from "../../assets/icons/PinterestLogo.png";
+import SignUpModal from "../../components/Modals/SignUpModal";
 
 
-const HeaderLogout = ({ onLogin }) => {
+const HeaderLogout = ({ onLogin, onModalOpen, onModalLogin }) => {
+  const [isSignUpModalOpen, setSignUpModalOpen] = useState(false);
 
+  const handleIntroductionClick = () => {
+    window.location.href = "https://help.pinterest.com/ko/guide/all-about-pinterest";
+  };
 
-    return (
-        <HeaderLogoutContainer>
-            <LogoWrapper>
-                <HeaderLogo
-                    src={Logo} alt="image"
-                    onClick={() => window.location.reload()}
-                />
-            </LogoWrapper>
-            <ButtonWrapper>
-                <CommonButton>소개</CommonButton>
-                <CommonButton>비즈니스</CommonButton>
-                <CommonButton>언론</CommonButton>
-                <LoginButton onClick={onLogin}>로그인</LoginButton>
-                <UserAddButton>가입하기</UserAddButton>
-            </ButtonWrapper>
-        </HeaderLogoutContainer>
-    );
+  const handlebusinessClick = () => {
+    window.location.href = "https://business.pinterest.com/ko/";
+  };
+
+  const handlepressClick = () => {
+    window.location.href = "https://newsroom.pinterest.com/en";
+  };
+
+  const handleOpenSignUpModal = () => {
+    setSignUpModalOpen(true);
+  };
+
+  return (
+    <HeaderLogoutContainer>
+      <LogoWrapper>
+        <HeaderLogo
+          src={Logo} alt="image"
+          onClick={() => window.location.reload()}
+        />{/*핀터레스트 아이콘의 */}
+      </LogoWrapper>
+      <ButtonWrapper>
+        <CommonButton onClick={handleIntroductionClick}>소개</CommonButton>
+        <CommonButton onClick={handlebusinessClick}>비즈니스</CommonButton>
+        <CommonButton onClick={handlepressClick}>언론</CommonButton>
+        <LoginButton
+          onClick={() => {
+            onModalOpen();
+          }}>로그인</LoginButton>
+        <UserAddButton onClick={handleOpenSignUpModal}>가입하기</UserAddButton>
+      </ButtonWrapper>
+      {isSignUpModalOpen && <SignUpModal onClose={() => setSignUpModalOpen(false)} />}
+    </HeaderLogoutContainer>
+  );
 };
 
 const HeaderLogoutContainer = styled.div`
