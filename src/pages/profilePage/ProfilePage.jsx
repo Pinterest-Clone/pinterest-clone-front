@@ -4,8 +4,8 @@ import { ReactComponent as AddArrow } from '../../assets/icons/addArrow.svg';
 import { useNavigate } from 'react-router-dom';
 
 export default function MyPage() {
-  const [isCreatedSelected, setIsCreatedSelected] = useState(true);
-  const [isSavedSelected, setIsSavedSelected] = useState(false);
+  const [isCreatedSelected, setIsCreatedSelected] = useState(false);
+  const [isSavedSelected, setIsSavedSelected] = useState(true);
   const [isClicked, setIsClicked] = useState(false);
 
   const navigate = useNavigate();
@@ -191,7 +191,7 @@ const PinMakeBtn = styled.div`
     justify-content: center;
     align-items: center;
 
-    &:hover { // 미완성
+    &:hover {
     background-color:${(props) => props.isClicked ?'#000' : '#efefef'};
     border-radius: 50%;
     };
@@ -217,7 +217,6 @@ const CreatedPin = styled.div`
   margin: 15px 10px 0 10px;
   padding: 12px;
   cursor: pointer;
-  // background-color: ${({ isSelected }) => (isSelected ? '#efefef' : 'none')};
   border-radius: 10px;
 
   &:hover {
@@ -249,7 +248,6 @@ const PinCardContainer = styled.div`
 `
 
 const PinCard = styled.div`
-  // 미완성
   width: 240px;
   border: none;
   border-radius: 12px;
