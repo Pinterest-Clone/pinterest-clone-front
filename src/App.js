@@ -6,19 +6,24 @@ import MakePinPage from "./pages/makePinPage/MakePinPage";
 import ProfilePage from "./pages/profilePage/ProfilePage";
 import ProfileEditPage from "./pages/profileEditPage/ProfileEditPage";
 import PinDetailPage from "./pages/pinDetailPage/PinDetailPage";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<PageLayout />}>
-        <Route path="" element={<IntroPage />} />
-        <Route path="home" element={<HomePage />} />
-        <Route path="make" element={<MakePinPage />} />
-        <Route path="detail/:pinid" element={<PinDetailPage />} />
-        <Route path="profile/:userid" element={<ProfilePage />} />
-        <Route path="profile/edit/:userid" element={<ProfileEditPage />} />
-      </Route>
-    </Routes>
+    <QueryClientProvider client={queryClient}>
+      <Routes>
+        <Route path="/" element={<PageLayout />}>
+          <Route path="" element={<IntroPage />} />
+          <Route path="home" element={<HomePage />} />
+          <Route path="make" element={<MakePinPage />} />
+          <Route path="detail/:pinid" element={<PinDetailPage />} />
+          <Route path="profile/:userid" element={<ProfilePage />} />
+          <Route path="profile/edit/:userid" element={<ProfileEditPage />} />
+        </Route>
+      </Routes>
+    </QueryClientProvider>
   );
 }
 
