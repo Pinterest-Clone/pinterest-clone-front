@@ -31,7 +31,9 @@ const LoginModal = ({ onClose, onLogin }) => {
           <Input type="password" placeholder="비밀번호" />
           <ForgotText>비밀번호를 잊으셨나요?</ForgotText>
           <Button type="submit" onClick={handleModalLogin}>로그인</Button>
+          <OrText>또는</OrText>
           <FacebookButton>Facebook으로 로그인하기</FacebookButton>
+          <GoogleButton>Google로 로그인하기</GoogleButton>
         </Form>
       </ModalContent>
     </ModalOverlay>
@@ -127,6 +129,19 @@ const FacebookButton = styled.button`
   display: block; /* Ensure the button takes the full width of its container */
 `;
 
+const GoogleButton = styled.button`
+  width: 268px;
+  height: 40px;
+  margin-top: 10px;
+  background-color: #4285f4; /* Google blue color */
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  display: block; /* Ensure the button takes the full width of its container */
+`;
+
 const CloseButton = styled.button`
   border: none;
   width: 40px;
@@ -135,6 +150,14 @@ const CloseButton = styled.button`
   margin-top: 10px;
   
 `;
+
+const OrText = styled.div`
+  font-size: small;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  font-weight: bold;
+`
 
 const ForgotText = styled.div`
     font-size: small;
