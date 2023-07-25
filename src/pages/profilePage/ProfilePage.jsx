@@ -21,6 +21,8 @@ export default function MyPage() {
     navigate('/make');
   }
 
+  
+
   const getRandomHeight = () => {
     return Math.floor(Math.random() * (700 - 200 + 1) + 200) + "px"; // 200px부터 700px 사이의 랜덤 높이
   };
