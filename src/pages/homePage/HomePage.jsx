@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { styled } from "styled-components";
 import jejus from '../../assets/img/jejus.jpg'
 import ten from '../../assets/img/10.jpg'
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
 
   const imgs = [jejus, ten];
+
+  const navigate = useNavigate();
+
+  const saveBtnClickHandler = () => {
+  }
 
   const getRandomHeight = () => {
     return Math.floor(Math.random() * (700 - 200 + 1) + 200) + "px"; // 200px부터 500px 사이의 랜덤 높이
@@ -15,9 +21,9 @@ export default function HomePage() {
     <div>
       <PinCardContainor>
         {imgs.map((image) => (
-          <PinCard>
+          <PinCard onClick={()=>navigate('/detail/:1')} >
             <img src={image} alt='하강~' />
-            <SaveButton>저장</SaveButton>
+            <SaveButton onClick={()=>saveBtnClickHandler} >저장</SaveButton>
           </PinCard>
         )
         )}
