@@ -1,14 +1,20 @@
 import React from "react";
 import { styled } from "styled-components";
+import { useQuery } from "react-query";
+
 import jejus from "../../assets/img/jejus.jpg";
 import ten from "../../assets/img/10.jpg";
-import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 
 // axios 함수
 import { getAllPins } from "../../axios/Home";
 
 export default function HomePage() {
   const imgs = [jejus, ten];
+
+  const navigate = useNavigate();
+
+  const saveBtnClickHandler = () => {};
 
   const getRandomHeight = () => {
     return Math.floor(Math.random() * (700 - 200 + 1) + 200) + "px"; // 200px부터 500px 사이의 랜덤 높이
@@ -43,11 +49,11 @@ export default function HomePage() {
 
   return (
     <div>
-      <PinCardContainor>
+      <PinCardContainer>
         {imgs.map((image) => (
-          <PinCard>
+          <PinCard onClick={() => navigate("/detail/:1")}>
             <img src={image} alt="하강~" />
-            <SaveButton>저장</SaveButton>
+            <SaveButton onClick={() => saveBtnClickHandler}>저장</SaveButton>
           </PinCard>
         ))}
         <PinCard height={getRandomHeight()}>card3</PinCard>
@@ -72,7 +78,7 @@ export default function HomePage() {
         <PinCard height={getRandomHeight()}>card6</PinCard>
         <PinCard height={getRandomHeight()}>card7</PinCard>
         <PinCard height={getRandomHeight()}>card8</PinCard>
-      </PinCardContainor>
+      </PinCardContainer>
     </div>
   );
 }
@@ -109,7 +115,7 @@ const PinCard = styled.div`
   }
 `;
 
-const PinCardContainor = styled.div`
+const PinCardContainer = styled.div`
   column-width: 230px;
   margin: 10px 50px 0 50px;
 `;
