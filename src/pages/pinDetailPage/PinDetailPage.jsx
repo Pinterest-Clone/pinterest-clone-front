@@ -1,18 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as Styled from "./style";
-import Reply from "./Reply";
 
 import { ReactComponent as Smile } from "../../assets/icons/smile.svg";
 import { ReactComponent as Down } from "../../assets/icons/triangleDown.svg";
-import { ReactComponent as Dots } from "../../assets/icons/dots.svg";
-import { ReactComponent as Link } from "../../assets/icons/link.svg";
-import { ReactComponent as Share } from "../../assets/icons/share.svg";
 import { ReactComponent as ArrowDown } from "../../assets/icons/arrowDown.svg";
 
 import EmojiPicker from "emoji-picker-react";
+import PinImage from "./PinImage";
+import PinHeadNav from "./PinHeadNav";
+import PinMakerInfo from "./PinMakerInfo";
+import PinReplyList from "./PinReplyList";
 
 export default function PinDetailPage() {
   const [showEmojiBox, setShowEmojiBox] = useState(false);
+  const [content, setContent] = useState("");
   const emojiPickerRef = useRef(null);
 
   useEffect(() => {
@@ -21,6 +22,9 @@ export default function PinDetailPage() {
 
     // figure 높이를 기준으로 section 요소의 최대 높이 설정
     const sectionElement = document.getElementById("pin-desc");
+
+    // textarea 창 크기
+    autoResize();
 
     if (sectionElement) {
       sectionElement.style.maxHeight = `${pinImgHeight}px`;
@@ -35,11 +39,6 @@ export default function PinDetailPage() {
     };
   }, []);
 
-  const onClickEmojiButtonHandler = (event) => {
-    event.stopPropagation(); // 이벤트 중단
-    setShowEmojiBox((prevShowEmojiBox) => !prevShowEmojiBox);
-  };
-
   const handleOutsideClick = (event) => {
     if (
       emojiPickerRef.current &&
@@ -49,58 +48,45 @@ export default function PinDetailPage() {
     }
   };
 
+  const handleTextareaChange = (event) => {
+    const inputValue = event.target.value;
+    setContent(inputValue);
+  };
+
+  function autoResize() {
+    const textarea = document.getElementById("contentTextarea");
+    textarea.style.height = "auto";
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  }
+
+  const onClickEmojiButtonHandler = (event) => {
+    event.stopPropagation();
+    setShowEmojiBox((prevShowEmojiBox) => !prevShowEmojiBox);
+  };
+
+  function onClickSelectedEmoji(emojiData) {
+    setContent(content + emojiData.emoji);
+    setShowEmojiBox(false);
+  }
+
   return (
     <Styled.Detailmain>
       <Styled.DetailArticle>
-        <figure>
-          <img
-            id="pin-image"
-            src="https://blog.kakaocdn.net/dn/5UYz8/btq4diRXkGE/HkHufR4G8X4bIX3h3lNjck/img.jpg"
-            // src="https://i.pinimg.com/564x/5c/8f/a8/5c8fa873f3f824a6b51513508c90f440.jpg"
-            // src="https://i.pinimg.com/564x/99/63/ff/9963ff14e2e1b62a9cf2b3a6f115a828.jpg"
-            alt=""
-          />
-        </figure>
+        <PinImage />
         <section id="pin-desc">
-          <Styled.DetailHeadNav>
-            <div>
-              <button>
-                <Dots />
-              </button>
-              <button>
-                <Share />
-              </button>
-              <button>
-                <Link />
-              </button>
-            </div>
-            <button>
-              저장 <ArrowDown />
-            </button>
-          </Styled.DetailHeadNav>
+          <PinHeadNav />
           <Styled.DetailContentBox>
             <Styled.DetailPinInfo>
               <h1>제목</h1>
               <p>내용내용</p>
             </Styled.DetailPinInfo>
-            <Styled.DetailUserInfo>
-              <figure>
-                <div>
-                  <img src="" alt="" />
-                </div>
-                <figcaption>
-                  <p>작성자</p>
-                  <p>팔로워 수 700만명</p>
-                </figcaption>
-              </figure>
-              <button>팔로우</button>
-            </Styled.DetailUserInfo>
+            <PinMakerInfo />
             <Styled.DetailReplyBox>
               {false ? (
                 <div>댓글</div>
               ) : (
                 <div>
-                  댓글{" "}
+                  댓글
                   <button>
                     <ArrowDown />
                   </button>
@@ -111,11 +97,7 @@ export default function PinDetailPage() {
                   아직 댓글이 없습니다. 대화를 시작하려면 하나를 추가하세요.
                 </p>
               ) : (
-                <Styled.DetailReplyList>
-                  <Reply />
-                  <Reply />
-                  <Reply />
-                </Styled.DetailReplyList>
+                <PinReplyList />
               )}
             </Styled.DetailReplyBox>
           </Styled.DetailContentBox>
@@ -130,7 +112,14 @@ export default function PinDetailPage() {
                   <img src="" alt="" />
                 </figure>
                 <Styled.DetailAddInputBox>
-                  <input type="text" />
+                  <textarea
+                    id="contentTextarea"
+                    value={content}
+                    onInput={autoResize}
+                    onChange={handleTextareaChange}
+                    placeholder="댓글 추가"
+                    rows="1"
+                  />
                   <button
                     onClick={onClickEmojiButtonHandler}
                     className={showEmojiBox ? "emojiButtonActive" : ""}
@@ -140,7 +129,11 @@ export default function PinDetailPage() {
                   {showEmojiBox && (
                     <div id="emojiBox" ref={emojiPickerRef}>
                       <Down />
-                      <EmojiPicker height="400px" />
+                      <EmojiPicker
+                        onEmojiClick={onClickSelectedEmoji}
+                        width="250px"
+                        height="300px"
+                      />
                     </div>
                   )}
                 </Styled.DetailAddInputBox>

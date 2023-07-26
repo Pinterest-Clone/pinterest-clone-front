@@ -1,60 +1,120 @@
 import { styled } from "styled-components";
 
-const Detailmain = styled.main`
+export const Detailmain = styled.main`
   display: flex;
   justify-content: center;
   margin-bottom: 300px;
+  padding-top: 80px;
 `;
 
-const DetailArticle = styled.article`
+export const DetailArticle = styled.article`
   display: flex;
-  width: 60%;
-  border-radius: 20px;
+  width: 65%;
+  border-radius: 30px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 
   & > figure {
     flex: 1;
     overflow: hidden;
-    border-radius: 20px 0 0 20px;
+    border-radius: 30px 0 0 30px;
 
     img {
       width: 100%;
       object-fit: cover;
     }
   }
-
   section {
+    position: relative;
     box-sizing: border-box;
     flex: 1;
     display: flex;
     flex-direction: column;
-    background: #f9f9f9;
-    border-radius: 0 20px 0 20px;
+    background: #ffffff;
+    border-radius: 0 30px 0 30px;
     height: 100%;
-    min-height: 500px;
+    min-height: 600px;
+  }
+
+  @media screen and (max-width: 1024px) {
+    flex-direction: column;
+    border-radius: 30px;
+
+    & > figure {
+      border-radius: 30px 30px 0 0;
+    }
+
+    section {
+      border-radius: 0 0 30px 30px;
+    }
   }
 `;
 
-const DetailHeadNav = styled.nav`
+export const DetailHeadNav = styled.nav`
   box-sizing: border-box;
   position: sticky;
   top: 0;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   height: 100px;
-  padding: 30px;
-  background: #f9f9f9;
-  border-bottom: 1px solid #e7e7e7;
+  padding: 0 30px;
+  background: #ffffff;
 
-  & button {
-    min-width: 60px;
-    min-height: 40px;
+  & > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-weight: 700;
+    background: var(--main-Color);
+    padding: 8px;
+    border-radius: 20px;
     border: none;
     cursor: pointer;
+
+    p {
+      padding: 0 5px;
+    }
+
+    &:hover {
+      filter: brightness(90%);
+    }
+  }
+
+  div {
+    display: flex;
+
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      border: none;
+      cursor: pointer;
+      border-radius: 50%;
+      background: none;
+
+      &:hover {
+        background: rgba(231, 231, 231, 0.7); //var(--border-Color)
+      }
+    }
+  }
+
+  svg {
+    width: 25px;
+    height: 25px;
+  }
+
+  button:last-child {
+    svg {
+      width: 20px;
+      height: 20px;
+    }
   }
 `;
 
-const DetailContentBox = styled.div`
+export const DetailContentBox = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -63,18 +123,18 @@ const DetailContentBox = styled.div`
   padding: 30px;
 `;
 
-const DetailPinInfo = styled.nav`
+export const DetailPinInfo = styled.nav`
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 25px;
 
   h1 {
-    font-size: 24px;
+    font-size: 30px;
     font-weight: 700;
   }
 `;
 
-const DetailUserInfo = styled.div`
+export const DetailUserInfo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -99,7 +159,7 @@ const DetailUserInfo = styled.div`
   }
 `;
 
-const DetailReplyBox = styled.div`
+export const DetailReplyBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -109,13 +169,13 @@ const DetailReplyBox = styled.div`
   }
 `;
 
-const DetailReplyList = styled.ul`
+export const DetailReplyList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 20px;
 `;
 
-const DetailReplyItem = styled.li`
+export const DetailReplyItem = styled.li`
   figure {
     display: flex;
     align-items: center;
@@ -136,24 +196,28 @@ const DetailReplyItem = styled.li`
   }
 `;
 
-const DetailAddBox = styled.div`
+export const DetailAddBox = styled.div`
   position: sticky;
   bottom: 0;
   width: 100%;
-  height: 120px;
   box-sizing: border-box;
   padding: 30px;
-  background: #f9f9f9;
+  background: #ffffff;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  border-top: 1px solid #e7e7e7;
+  border-top: 1px solid var(--border-Color);
   padding-top: 20px;
 
   .row:first-child {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+
+    h3 {
+      font-size: 18px;
+      font-weight: 700;
+    }
   }
 
   .row:last-child {
@@ -162,33 +226,51 @@ const DetailAddBox = styled.div`
     gap: 10px;
 
     figure {
-      min-width: 35px;
-      min-height: 35px;
+      min-width: 40px;
+      min-height: 40px;
       border-radius: 50%;
       background: black;
     }
   }
 `;
 
-const DetailAddInputBox = styled.div`
+export const DetailAddInputBox = styled.div`
   position: relative;
+  width: 100%;
   box-sizing: border-box;
   padding: 5px;
-  background: #d3d3d3;
+  background: #e1e1e1;
   border-radius: 20px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  width: 100%;
 
-  input {
-    width: 100%;
-    border: none;
-    background: none;
-    padding: 5px 5px 5px 10px;
+  /* 입력값이 있을 때 테두리 스타일 적용 */
+  &:not(:empty) {
+    outline: 1px solid var(--border-Color);
   }
 
-  input:focus {
-    outline: none;
+  & > textarea {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-height: 100px;
+    padding-top: 8px;
+    padding-left: 10px;
+    border: none;
+    background: none;
+    resize: none;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+      cursor: text;
+    }
+  }
+
+  &:focus-within {
+    outline: 1px solid var(--border-Color);
+    background: none;
   }
 
   button {
@@ -204,7 +286,7 @@ const DetailAddInputBox = styled.div`
     cursor: pointer;
 
     &:hover {
-      background: rgba(231, 231, 231, 0.7); //#e7e7e7
+      background: rgba(231, 231, 231, 0.7); //var(--border-Color)
     }
   }
 
@@ -226,17 +308,3 @@ const DetailAddInputBox = styled.div`
     }
   }
 `;
-
-export {
-  Detailmain,
-  DetailArticle,
-  DetailPinInfo,
-  DetailHeadNav,
-  DetailContentBox,
-  DetailUserInfo,
-  DetailReplyBox,
-  DetailReplyList,
-  DetailReplyItem,
-  DetailAddBox,
-  DetailAddInputBox,
-};
