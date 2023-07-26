@@ -1,13 +1,28 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Logo from "../../assets/icons/PinterestLogoLogin.png"
+import Logo from "../../assets/icons/PinterestLogoLogin.png";
+import { useMutation } from "react-query";
+import { login } from "../../axios/auth";
 
 const LoginModal = ({ onClose, onLogin }) => {
   const [isModalLogIn, setModalLogIn] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const mutation = useMutation(login, {
+    onSuccess: (data) => {
+      if (data) {
+        alert("로그인 성공!");
+      }
+    },
+    onError: (error) => {
+      alert("다시 시도해주세요");
+    },
+  });
 
   const handleModalLogin = () => {
-    // 로그인 폼과 관련된 로직을 구현합니다.
-    // 모달 안의 로그인 버튼을 눌렀을 때 isModalLogIn 값을 true로 변경하는 것으로 가정합니다.
+    const loginInfo = { email, password };
+    mutation.mutate(loginInfo);
     setModalLogIn(true);
   };
 
@@ -23,18 +38,33 @@ const LoginModal = ({ onClose, onLogin }) => {
           <LogoImageIcon src={Logo} alt="image" />
           <CloseButton onClick={handleCloseModal}>X</CloseButton>
         </HeaderContainer>
-        <WelcomeText>Pinterest에 오신 것을 <br />환영합니다</WelcomeText>
-        <Form>
+        <WelcomeText>
+          Pinterest에 오신 것을 <br />
+          환영합니다
+        </WelcomeText>
+        <div>
           <LoginText>이메일</LoginText>
-          <Input type="text" placeholder="이메일" />
+          <Input
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+            type="text"
+            placeholder="이메일"
+          />
           <LoginText>비밀번호</LoginText>
-          <Input type="password" placeholder="비밀번호" />
+          <Input
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            type="password"
+            placeholder="비밀번호"
+          />
           <ForgotText>비밀번호를 잊으셨나요?</ForgotText>
-          <Button type="submit" onClick={handleModalLogin}>로그인</Button>
+          <Button type="submit" onClick={handleModalLogin}>
+            로그인
+          </Button>
           <OrText>또는</OrText>
           <FacebookButton>Facebook으로 로그인하기</FacebookButton>
           <GoogleButton>Google로 로그인하기</GoogleButton>
-        </Form>
+        </div>
       </ModalContent>
     </ModalOverlay>
   );
@@ -60,26 +90,26 @@ const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width:484px;
+  width: 484px;
 `;
 
 const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`
+`;
 
 const WelcomeText = styled.div`
   font-size: xx-large;
   font-weight: bold;
-   display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   padding: 20px 0px 0px 0px;
 `;
 
-const Form = styled.form`
+const Form = styled.div`
   display: flex;
   flex-direction: column;
   /* align-items: center; */
@@ -100,8 +130,9 @@ const Input = styled.input`
   padding: 5px;
   border-radius: 16px;
   border-color: #dfdfdf;
-   &:hover {
-    border-color: gray;}
+  &:hover {
+    border-color: gray;
+  }
 `;
 
 const Button = styled.button`
@@ -148,7 +179,6 @@ const CloseButton = styled.button`
   height: 40px;
   border-radius: 20px;
   margin-top: 10px;
-  
 `;
 
 const OrText = styled.div`
@@ -157,22 +187,23 @@ const OrText = styled.div`
   justify-content: center;
   margin-bottom: 10px;
   font-weight: bold;
-`
+`;
 
 const ForgotText = styled.div`
-    font-size: small;
-    font-weight: bold;
-    padding: 10px 0px 10px 0px;
-    &:hover {
-    text-decoration: underline;}
-    cursor: pointer;
+  font-size: small;
+  font-weight: bold;
+  padding: 10px 0px 10px 0px;
+  &:hover {
+    text-decoration: underline;
+  }
+  cursor: pointer;
 `;
 
 const LogoImageIcon = styled.img`
-width: 40px;
-height: 38px;
-margin-bottom: auto;
-margin-top: 10px;
+  width: 40px;
+  height: 38px;
+  margin-bottom: auto;
+  margin-top: 10px;
 `;
 
 export default LoginModal;

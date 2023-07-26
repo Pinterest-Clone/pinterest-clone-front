@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Logo from "../../assets/icons/PinterestLogoLogin.png";
 import { useMutation } from "react-query";
 import { signUp } from "../../axios/auth";
-import ourAxios from "../../axios/ourAxios";
+
 import { parseISO } from "date-fns";
 
 const SignUpModal = ({ onClose, onSignUp }) => {
@@ -17,17 +17,10 @@ const SignUpModal = ({ onClose, onSignUp }) => {
   const [usernameErrorMessage, setUsernameErrorMessage] = useState("");
 
   const handleModalLogin = async () => {
-    // const response = await ourAxios.post("api/users/signup", {
-    //   email,
-    //   password,
-    //   birthday: "111",
-    // });
-    // console.log(response);
-
     const signUpData = {
       email: email,
       password: password,
-      birthday: dateOfBirth, // Assuming dateOfBirth is already in the "yyyy-MM-dd" format.
+      birthday: dateOfBirth, // # 생일 포맷 바꾸기
     };
 
     mutation.mutate(signUpData);
