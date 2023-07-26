@@ -3,12 +3,46 @@ import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Logo from "../../assets/icons/PinterestLogoLogin.png"
+import { Instance } from "../../axios/SignAxios";
 
 const SignUpModal = ({ onClose, onSignUp }) => {
   const [isModalLogIn, setModalLogIn] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState(null);
+  const [checkPassword, setCheckPassword] = useState("");
+  const [usernameErrorMessage, setUsernameErrorMessage] = useState("");
+
 
   const handleModalLogin = () => {
+
+    const signUpData = {
+      email: email,
+      password: password,
+      birthday: dateOfBirth, // Assuming dateOfBirth is already in the "yyyy-MM-dd" format.
+    };
+
+    // Send the POST request to the signup API.
+    fetch("/api/users/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(signUpData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Assuming the server returns a success message or token upon successful signup.
+        // You can handle the response data here.
+        console.log(data);
+        // You can also close the modal or perform any other actions here after successful signup.
+        setModalLogIn(true);
+      })
+      .catch((error) => {
+        // Handle any errors that occur during the signup process.
+        console.error("Error occurred during signup:", error);
+      });
+
     // 로그인 폼과 관련된 로직을 구현합니다.
     // 이 예시에서는 간단하게 모달 안의 로그인 버튼을 눌렀을 때 isModalLogIn 값을 true로 변경하는 것으로 가정합니다.
     setModalLogIn(true);
