@@ -3,10 +3,6 @@ import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Logo from "../../assets/icons/PinterestLogoLogin.png";
-import { useMutation } from "react-query";
-import { signUp } from "../../axios/auth";
-import ourAxios from "../../axios/ourAxios";
-import { parseISO } from "date-fns";
 
 const SignUpModal = ({ onClose, onSignUp }) => {
   const [isModalLogIn, setModalLogIn] = useState(false);
@@ -16,23 +12,14 @@ const SignUpModal = ({ onClose, onSignUp }) => {
   const [checkPassword, setCheckPassword] = useState("");
   const [usernameErrorMessage, setUsernameErrorMessage] = useState("");
 
-  const handleModalLogin = async () => {
-    // const response = await ourAxios.post("api/users/signup", {
-    //   email,
-    //   password,
-    //   birthday: "111",
-    // });
-    // console.log(response);
-
+  const handleModalLogin = () => {
     const signUpData = {
       email: email,
       password: password,
       birthday: dateOfBirth, // Assuming dateOfBirth is already in the "yyyy-MM-dd" format.
     };
 
-    mutation.mutate(signUpData);
     setModalLogIn(true);
-    console.log("이게되네")
   };
 
   const handleCloseModal = () => {
@@ -53,8 +40,6 @@ const SignUpModal = ({ onClose, onSignUp }) => {
     console.log(e.target);
     setDateOfBirth(date);
   };
-
-  const mutation = useMutation(signUp, {});
 
   return (
     <ModalOverlay>
@@ -122,6 +107,7 @@ const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 484px;
 `;
 
@@ -154,12 +140,6 @@ const OrText = styled.div`
   font-weight: bold;
 `;
 
-const Form = styled.div`
-  display: flex;
-  flex-direction: column;
-  /* align-items: center; */
-  margin: 20px;
-`;
 
 const LoginText = styled.div`
   font-size: small;

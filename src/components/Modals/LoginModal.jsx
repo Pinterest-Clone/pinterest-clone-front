@@ -24,17 +24,17 @@ const LoginModal = ({ onClose, onLogin }) => {
           <CloseButton onClick={handleCloseModal}>X</CloseButton>
         </HeaderContainer>
         <WelcomeText>Pinterest에 오신 것을 <br />환영합니다</WelcomeText>
-        <Form>
-          <LoginText>이메일</LoginText>
-          <Input type="text" placeholder="이메일" />
-          <LoginText>비밀번호</LoginText>
-          <Input type="password" placeholder="비밀번호" />
-          <ForgotText>비밀번호를 잊으셨나요?</ForgotText>
-          <Button type="submit" onClick={handleModalLogin}>로그인</Button>
-          <OrText>또는</OrText>
-          <FacebookButton>Facebook으로 로그인하기</FacebookButton>
-          <GoogleButton>Google로 로그인하기</GoogleButton>
-        </Form>
+
+        <LoginText>이메일</LoginText>
+        <Input type="text" placeholder="이메일" />
+        <LoginText>비밀번호</LoginText>
+        <Input type="password" placeholder="비밀번호" />
+        <ForgotText>비밀번호를 잊으셨나요?</ForgotText>
+        <Button type="submit" onClick={handleModalLogin}>로그인</Button>
+        <OrText>또는</OrText>
+        <FacebookButton>Facebook으로 로그인하기</FacebookButton>
+        <GoogleButton>Google로 로그인하기</GoogleButton>
+
       </ModalContent>
     </ModalOverlay>
   );
@@ -79,12 +79,12 @@ const WelcomeText = styled.div`
   padding: 20px 0px 0px 0px;
 `;
 
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  /* align-items: center; */
-  margin-top: 20px;
-`;
+// const Form = styled.form`
+//   display: flex;
+//   flex-direction: column;
+//   /* align-items: center; */
+//   margin-top: 20px;
+// `;
 
 const LoginText = styled.div`
   font-size: small;

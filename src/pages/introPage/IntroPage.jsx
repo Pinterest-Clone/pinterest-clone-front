@@ -19,8 +19,8 @@ const IntroPage = () => {
           <Main>
             <BtnWrap>
               <MoveBtn onClick={handleNextSlide}>V</MoveBtn>
+              <FollowBtn onClick={handleNextSlide}>방식은 다음과 같습니다▾</FollowBtn>
             </BtnWrap>
-            <FollowBtn onClick={handleNextSlide}>방식은 다음과 같습니다▾</FollowBtn>
             <NestedMain>
               <AutoSlides>
                 <AutoSlide $bgColor="#ff0000" />
@@ -200,7 +200,7 @@ const SlideTextContainer = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   padding: 100px;
 `
