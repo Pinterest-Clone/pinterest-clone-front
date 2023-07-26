@@ -3,8 +3,6 @@ import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Logo from "../../assets/icons/PinterestLogoLogin.png";
-import { useMutation, useQueryClient } from "react-query";
-import { signUp } from "../../axios/auth";
 
 const SignUpModal = ({ onClose, onSignUp }) => {
   const [isModalLogIn, setModalLogIn] = useState(false);
