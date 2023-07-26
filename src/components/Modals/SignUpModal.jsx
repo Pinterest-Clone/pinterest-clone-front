@@ -22,6 +22,7 @@ const SignUpModal = ({ onClose, onSignUp }) => {
     };
 
     setModalLogIn(true);
+    Mutation.mutate(signUpDate);
   };
 
   const handleCloseModal = () => {
