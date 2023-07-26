@@ -3,6 +3,10 @@ import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Logo from "../../assets/icons/PinterestLogoLogin.png";
+import { useMutation } from "react-query";
+import { signUp } from "../../axios/auth";
+
+import { parseISO } from "date-fns";
 
 const SignUpModal = ({ onClose, onSignUp }) => {
   const [isModalLogIn, setModalLogIn] = useState(false);
@@ -12,11 +16,11 @@ const SignUpModal = ({ onClose, onSignUp }) => {
   const [checkPassword, setCheckPassword] = useState("");
   const [usernameErrorMessage, setUsernameErrorMessage] = useState("");
 
-  const handleModalLogin = () => {
+  const handleModalLogin = async () => {
     const signUpData = {
       email: email,
       password: password,
-      birthday: dateOfBirth, // Assuming dateOfBirth is already in the "yyyy-MM-dd" format.
+      birthday: dateOfBirth, // # 생일 포맷 바꾸기
     };
 
     setModalLogIn(true);

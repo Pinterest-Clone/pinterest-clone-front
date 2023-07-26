@@ -188,13 +188,15 @@ const HalfImg = styled.img`
 
 
 const BackImg = styled.img`
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
   background-image: url(${BackgroundImg});
   background-size: cover;
   background-position: center;
-
-`
+  top: 0;
+  left: 0;
+  filter: brightness(50%);
+`;
 
 const SlideTextContainer = styled.div`
   flex: 1;
