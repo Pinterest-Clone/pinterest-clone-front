@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { FullPage, Slide } from 'react-full-page';
 import Jejus from "../../assets/img/jejus.jpg"
 import BackgroundImg from "../../assets/img/backgroundpage.png"
@@ -17,8 +17,10 @@ const IntroPage = () => {
 
         <Slide>
           <Main>
-            <MoveBtn></MoveBtn>
-            <button onClick={handleNextSlide}>방식은 다음과 같습니다▾</button>
+            <BtnWrap>
+              <MoveBtn onClick={handleNextSlide}>V</MoveBtn>
+              <FollowBtn onClick={handleNextSlide}>방식은 다음과 같습니다▾</FollowBtn>
+            </BtnWrap>
             <NestedMain>
               <AutoSlides>
                 <AutoSlide $bgColor="#ff0000" />
@@ -96,36 +98,60 @@ const Main = styled.div`
   width: 100%;
   height: 100%;
   background: ${({ $bgColor }) => $bgColor};
-
-  & > button{
-    position: absolute; 
-    bottom: 0; 
-    background: #fffd92; 
-    height: 8vh;
-    width: 100%;
-    box-sizing: border-box; 
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-  }
 `
 
-const MoveBtn = styled.div`
+const BtnWrap = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
 
-@keyframes moveUpDown {
+const FollowBtn = styled.button`
+  position: absolute; 
+  bottom: 0; 
+  background: #fffd92; 
+  height: 8vh;
+  width: 100%;
+  box-sizing: border-box; 
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+`
+
+// 버튼 애니메이션
+const moveUpDown = keyframes`
   0%, 100% {
     transform: translateY(0);
   }
   50% {
     transform: translateY(20px);
   }
-}
+`;
 
-.animated-button {
-  animation: moveUpDown 2s linear infinite;
-}
+// 배경색 바뀌는 애니메이션
+const changeColor = keyframes`
+  0% { background-color: #b02929; }
+  33% { background-color: #006500; }
+  67% { background-color: #000069; }
+  100% { background-color: #b02929; }
+`;
+
+const MoveBtn = styled.div`
+  animation:${changeColor} 15s steps(1, end) infinite, 
+            ${moveUpDown} 2s linear infinite;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  box-sizing: border-box;
+  border-radius: 50%;
+  cursor: pointer;
 `
-
 
 const NestedMain = styled.div`
   position: relative;
