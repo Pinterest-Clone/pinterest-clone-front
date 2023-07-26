@@ -7,7 +7,7 @@ import ten from "../../assets/img/10.jpg";
 import { useNavigate } from "react-router-dom";
 
 // axios 함수
-import { getAllPins } from "../../axios/home";
+import { getAllPins } from "../../axios/Home";
 
 export default function HomePage() {
   const imgs = [jejus, ten];
