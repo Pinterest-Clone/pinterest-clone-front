@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import * as s from './style';
 import Logo from "../../assets/icons/PinterestLogoLogin.png";
 import { useMutation } from "react-query";
 import { signUp } from "../../axios/auth";
@@ -17,13 +15,6 @@ const SignUpModal = ({ onClose, onSignUp }) => {
   const [usernameErrorMessage, setUsernameErrorMessage] = useState("");
 
   const handleModalLogin = async () => {
-    // const response = await ourAxios.post("api/users/signup", {
-    //   email,
-    //   password,
-    //   birthday: "111",
-    // });
-    // console.log(response);
-
     const signUpData = {
       email: email,
       password: password,
@@ -56,192 +47,49 @@ const SignUpModal = ({ onClose, onSignUp }) => {
   const mutation = useMutation(signUp, {});
 
   return (
-    <ModalOverlay>
-      <ModalContent>
-        <HeaderContainer>
-          <LogoImageIcon src={Logo} alt="image" />
-          <CloseButton onClick={handleCloseModal}>X</CloseButton>
-        </HeaderContainer>
-        <WelcomeText>
+    <s.ModalOverlay>
+      <s.ModalContent>
+        <s.HeaderContainer>
+          <s.LogoImageIcon src={Logo} alt="image" />
+          <s.CloseButton onClick={handleCloseModal}>X</s.CloseButton>
+        </s.HeaderContainer>
+        <s.WelcomeText>
           Pinterest에 오신 것을 <br />
           환영합니다
-        </WelcomeText>
-        <TryText>시도해 볼 만한 새로운 아이디어 찾기</TryText>
+        </s.WelcomeText>
+        <s.TryText>시도해 볼 만한 새로운 아이디어 찾기</s.TryText>
         <div>
-          <LoginText>이메일</LoginText>
-          <Input
+          <s.LoginText>이메일</s.LoginText>
+          <s.Input
             type="text"
             onChange={handleEmailChange}
             value={email}
             placeholder="이메일"
           />
-          <LoginText>비밀번호</LoginText>
-          <Input
+          <s.LoginText>비밀번호</s.LoginText>
+          <s.Input
             type="password"
             onChange={handlePasswordChange}
             value={password}
             placeholder="비밀번호"
           />
-          <LoginText>생년월일</LoginText>
-          <DatePickerInput
+          <s.LoginText>생년월일</s.LoginText>
+          <s.DatePickerInput
             selected={dateOfBirth}
             onChange={handleDateOfBirthChange}
             dateFormat="yyyy-MM-dd"
             placeholderText="생년월일을 선택하세요"
           />
-          <Button type="submit" onClick={handleModalLogin}>
+          <s.Button type="submit" onClick={handleModalLogin}>
             계속하기
-          </Button>
-          <OrText>또는</OrText>
-          <FacebookButton>Facebook으로 로그인하기</FacebookButton>
-          <GoogleButton>Google로 로그인하기</GoogleButton>
+          </s.Button>
+          <s.OrText>또는</s.OrText>
+          <s.FacebookButton>Facebook으로 로그인하기</s.FacebookButton>
+          <s.GoogleButton>Google로 로그인하기</s.GoogleButton>
         </div>
-      </ModalContent>
-    </ModalOverlay>
+      </s.ModalContent>
+    </s.ModalOverlay>
   );
 };
-
-const ModalOverlay = styled.div`
-  /* 오버레이를 화면 전체를 덮도록 설정합니다. */
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* 반투명한 검은 배경 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const ModalContent = styled.div`
-  background-color: white;
-  padding: 20px;
-  border-radius: 32px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 484px;
-`;
-
-const HeaderContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const WelcomeText = styled.div`
-  font-size: xx-large;
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px 0px 0px 0px;
-`;
-
-const TryText = styled.div`
-  font-size: medium;
-  padding: 10px 0px 0px 0px;
-  text-align: center;
-`;
-const OrText = styled.div`
-  font-size: small;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-  font-weight: bold;
-`;
-
-const Form = styled.div`
-  display: flex;
-  flex-direction: column;
-  /* align-items: center; */
-  margin: 20px;
-`;
-
-const LoginText = styled.div`
-  font-size: small;
-  padding: 10px 0px 10px 0px;
-  display: flex;
-  text-align: left;
-`;
-
-const Input = styled.input`
-  width: 268px;
-  height: 35px;
-  margin: 5px 0;
-  padding: 5px;
-  border-radius: 16px;
-  border-color: #dfdfdf;
-  &:hover {
-    border-color: gray;
-  }
-`;
-
-const Button = styled.button`
-  width: 268px;
-  height: 40px;
-  margin: 20px auto;
-  background-color: red;
-  border-radius: 20px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
-  /* display: block; */
-`;
-
-const FacebookButton = styled.button`
-  width: 268px;
-  height: 40px;
-  margin: 10px auto;
-  background-color: #3b5998;
-  border-radius: 20px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
-`;
-
-const GoogleButton = styled.button`
-  width: 268px;
-  height: 40px;
-  margin: auto;
-  background-color: #4285f4; /* Google blue color */
-  border-radius: 20px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
-  display: block; /* Ensure the button takes the full width of its container */
-`;
-
-const CloseButton = styled.button`
-  border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-  margin-top: 10px;
-`;
-
-const DatePickerInput = styled(DatePicker)`
-  width: 268px;
-  height: 35px;
-  margin: 5px 0;
-  padding: 5px;
-  border-radius: 16px;
-  border-color: #dfdfdf;
-  &:hover {
-    border-color: gray;
-  }
-`;
-
-const LogoImageIcon = styled.img`
-  width: 40px;
-  height: 38px;
-  margin-bottom: auto;
-  margin-top: 10px;
-`;
 
 export default SignUpModal;
