@@ -34,6 +34,9 @@ const IntroPage = () => {
 
         <Slide>
           <Main $bgColor="#fffd92">
+            <SlideImgContainer>
+              <HalfImg src={Jejus} alt="image" />
+            </SlideImgContainer>
             <SlideTextContainer>
               <IntroText color="#C31952">아이디어 검색</IntroText>
               <HalfText color="#C31952">어떤 것을 시도해보고 싶으세요? '닭고기로 만드는 간단한 저녁 메뉴'와 같이 관심 있는 내용을 검색하고 결과를 확인해 보세요.</HalfText>
@@ -53,6 +56,9 @@ const IntroPage = () => {
                 bgColor="#006B6C"
                 onClick={handleNextSlide}>탐색</NavigationButton>
             </SlideTextContainer>
+            <SlideImgContainer>
+              <HalfImg src={Jejus} alt="image" />
+            </SlideImgContainer>
           </Main >
         </Slide>
 
@@ -180,12 +186,23 @@ const HalfImg = styled.img`
   object-fit: cover;
 `
 
+const SemiTransparentBackground = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: -1;
+`;
+
 const BackImg = styled.img`
   width: auto;
   height: auto;
   background-image: url(${BackgroundImg});
   background-size: cover;
   background-position: center;
+
 `
 
 const SlideTextContainer = styled.div`
