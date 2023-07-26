@@ -100,8 +100,9 @@ export default function ProfileEditPage() {
                       회원님의 프로필을 방문하려는 사용자에게 다음 정보가
                       표시됩니다.
                     </div>
-
-                    <s.TextAlign>사진</s.TextAlign>
+                    <s.TextAlign style={{ marginBottom: "0" }}>
+                      사진
+                    </s.TextAlign>
                     <div
                       style={{
                         display: "flex",
@@ -111,9 +112,7 @@ export default function ProfileEditPage() {
                     >
                       <div
                         style={{
-                          marginTop: "px",
-                          marginBottom: "10px",
-                          margin: "0 18px 10px 0",
+                          margin: "0 15px 0 0",
                           width: "75px",
                           height: "75px",
                           borderRadius: "40px",
@@ -125,8 +124,6 @@ export default function ProfileEditPage() {
                           fontWeight: "600",
                           minWidth: "60px",
                           minHeight: "40px",
-                          marginTop: "32px",
-                          marginBottom: "4px",
                           boxSizing: "border-box",
                           backgroundColor: "#efefef",
                           borderRadius: "25px",
@@ -139,14 +136,20 @@ export default function ProfileEditPage() {
                       </div>
                     </div>
 
-                    <div style={{ display: "flex", gap: "4px" }}>
+                    <div style={{ display: "flex", gap: "8px" }}>
                       <div style={{ display: "flex", flexDirection: "column" }}>
                         <s.TextAlign>이름</s.TextAlign>
-                        <s.Input onChange={handleInputChange} />
+                        <s.Input
+                          onChange={handleInputChange}
+                          style={{ width: "208px" }}
+                        />
                       </div>
                       <div style={{ display: "flex", flexDirection: "column" }}>
                         <s.TextAlign>성</s.TextAlign>
-                        <s.Input onChange={handleInputChange} />
+                        <s.Input
+                          onChange={handleInputChange}
+                          style={{ width: "208px" }}
+                        />
                       </div>
                     </div>
 
@@ -155,7 +158,7 @@ export default function ProfileEditPage() {
                       <s.Input
                         placeholder="회원님의 이야기를 들려주세요"
                         onChange={handleInputChange}
-                        style={{ width: "466px", height: "100px" }}
+                        style={{ height: "100px" }}
                       />
                     </div>
 
@@ -164,7 +167,6 @@ export default function ProfileEditPage() {
                       <s.Input
                         placeholder="회원님의 사이트로 트래픽을 유도하는 링크를 추가하세요"
                         onChange={handleInputChange}
-                        style={{ width: "466px" }}
                       />
                     </div>
 
@@ -173,9 +175,15 @@ export default function ProfileEditPage() {
                       <s.Input
                         placeholder="다른 사람들이 회원님을 찾을 수 있도록 잘 선택하세요"
                         onChange={handleInputChange}
-                        style={{ width: "466px" }}
                       />
-                      <div>{`www.pinterest.com/`}</div>
+                      <div
+                        style={{
+                          paddingTop: "5px",
+                          wordWrap: "break-word",
+                          fontSize: "12px",
+                          color: "#5c5c5c",
+                        }}
+                      >{`www.pinterest.com/${name}`}</div>
                     </div>
                   </s.OpenProfileEdit>
                 </>
@@ -183,7 +191,7 @@ export default function ProfileEditPage() {
 
               {isPersonalSelected && (
                 <>
-                  <s.PersonalInfoEdit>
+                  <s.OpenProfileEdit>
                     <div
                       style={{
                         textAlign: "left",
@@ -198,6 +206,7 @@ export default function ProfileEditPage() {
                         textAlign: "left",
                         fontWeight: 400,
                         fontSize: "16px",
+                        lineHeight: "20px",
                       }}
                     >
                       기본 개인 정보를 수정하여 추천 콘텐츠의 품질을 높이세요.
@@ -206,28 +215,86 @@ export default function ProfileEditPage() {
                     </div>
 
                     <div>
-                      <div>생년월일</div>
-                      <input placeholder="MM/DD/YYYY" />
+                      <s.TextAlign>생년월일</s.TextAlign>
+                      <s.DateInput
+                        placeholderText="MM/DD/YYYY"
+                        selected={dateOfBirth}
+                        dateFormat="yyyy-MM-dd"
+                        onChange={handleDateOfBirthChange}
+                      />
                     </div>
 
-                    <div>
-                      <div>성별</div>
-                      <div>남성</div>
-                      <div>여성</div>
-                      <div>둘 다 아님</div>
-                      <input placeholder="원하는 성별을 입력하세요." />
+                    <s.TextAlign style={{ marginBottom: "0" }}>
+                      성별
+                    </s.TextAlign>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      <s.OtherLavel for="male">
+                        <s.OtherRadio
+                          type="radio"
+                          value="male"
+                          checked={gender === "male"}
+                          onChange={() => setGender("male")}
+                        />
+                        남성
+                      </s.OtherLavel>
+
+                      <s.OtherLavel for="female">
+                        <s.OtherRadio
+                          type="radio"
+                          value="male"
+                          checked={gender === "female"}
+                          onChange={() => setGender("female")}
+                        />
+                        여성
+                      </s.OtherLavel>
+
+                      <s.OtherLavel for="other">
+                        <s.OtherRadio
+                          type="radio"
+                          value="other"
+                          checked={gender === "other"}
+                          onChange={() => setGender("other")}
+                        />
+                        둘 다 아님
+                      </s.OtherLavel>
+
+                      {gender === "other" && (
+                        <div
+                          style={{
+                            display: "wrap",
+                            flexDirection: "wrap",
+                            justifyContent: "flex-end",
+                          }}
+                        >
+                          <s.Input
+                            maxLength={500}
+                            placeholder="원하는 성별을 입력하세요."
+                            value={customGender}
+                            onChange={(e) => setCustomGender(e.target.value)}
+                          />
+                          <div style={{ fontSize: "12px", marginTop: "10px" }}>
+                            {customGender.length}/500
+                          </div>
+                        </div>
+                      )}
                     </div>
 
-                    <div>
-                      <div>국가/지역</div>
-                      <div>국가/지역 select</div>
-                    </div>
+                    {/* <div>
+                  <s.TextAlign>국가/지역</s.TextAlign>
+                  <div>국가/지역 select</div>
+                </div>
 
-                    <div>
-                      <div>언어</div>
-                      <div>언어 select</div>
-                    </div>
-                  </s.PersonalInfoEdit>
+                <div>
+                  <s.TextAlign>언어</s.TextAlign>
+                  <div>언어 select</div>
+                </div> */}
+                  </s.OpenProfileEdit>
                 </>
               )}
             </s.EditSection>

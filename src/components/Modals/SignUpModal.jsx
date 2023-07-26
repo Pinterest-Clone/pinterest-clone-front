@@ -3,9 +3,8 @@ import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Logo from "../../assets/icons/PinterestLogoLogin.png";
-
+import { useMutation, useQueryClient } from "react-query";
 import { signUp } from "../../axios/auth";
-import { useMutation } from "react-query";
 
 const SignUpModal = ({ onClose, onSignUp }) => {
   const mutation = useMutation(signUp, {
@@ -23,6 +22,15 @@ const SignUpModal = ({ onClose, onSignUp }) => {
   const [dateOfBirth, setDateOfBirth] = useState(null);
   const [checkPassword, setCheckPassword] = useState("");
   const [usernameErrorMessage, setUsernameErrorMessage] = useState("");
+
+  const queryClient = useQueryClient();
+  // mutation 선언
+  const mutation = useMutation(signUp, {
+    onSuccess: (data) => {
+      console.log(data);
+      queryClient.invalidateQueries('api/users/signup');
+    }
+  });
 
   const handleModalLogin = () => {
     const signUpData = {
@@ -54,18 +62,29 @@ const SignUpModal = ({ onClose, onSignUp }) => {
     //     console.error("Error occurred during signup:", error);
     //   });
 
-    // 로그인 폼과 관련된 로직을 구현합니다.
-    // 이 예시에서는 간단하게 모달 안의 로그인 버튼을 눌렀을 때 isModalLogIn 값을 true로 변경하는 것으로 가정합니다.
     setModalLogIn(true);
+    mutation.mutate({ email, password });
   };
+
 
   const handleCloseModal = () => {
     onClose();
     setModalLogIn(false);
   };
 
-  const handleDateOfBirthChange = (date) => {
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleDateOfBirthChange = (date, e) => {
+    console.log(date);
+    console.log(e.target);
     setDateOfBirth(date);
+
   };
 
   return (
@@ -80,11 +99,11 @@ const SignUpModal = ({ onClose, onSignUp }) => {
           환영합니다
         </WelcomeText>
         <TryText>시도해 볼 만한 새로운 아이디어 찾기</TryText>
-        <Form>
+        <div>
           <LoginText>이메일</LoginText>
-          <Input type="text" placeholder="이메일" />
+          <Input type="text" onChange={handleEmailChange} value={email} placeholder="이메일" />
           <LoginText>비밀번호</LoginText>
-          <Input type="password" placeholder="비밀번호" />
+          <Input type="password" onChange={handlePasswordChange} value={password} placeholder="비밀번호" />
           <LoginText>생년월일</LoginText>
           <DatePickerInput
             selected={dateOfBirth}
@@ -98,9 +117,9 @@ const SignUpModal = ({ onClose, onSignUp }) => {
           <OrText>또는</OrText>
           <FacebookButton>Facebook으로 로그인하기</FacebookButton>
           <GoogleButton>Google로 로그인하기</GoogleButton>
-        </Form>
+        </div>
       </ModalContent>
-    </ModalOverlay>
+    </ModalOverlay >
   );
 };
 

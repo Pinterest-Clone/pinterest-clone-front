@@ -4,12 +4,12 @@ import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 
 // axios 함수
-import { getAllPins } from "../../axios/Home";
+import { getAllPins } from "../../axios/home";
 
 export default function HomePage() {
   const navigate = useNavigate();
 
-  const saveBtnClickHandler = () => {};
+  const saveBtnClickHandler = () => { };
 
   const { data, isLoading, isError, error } = useQuery(
     "getAllPins",
