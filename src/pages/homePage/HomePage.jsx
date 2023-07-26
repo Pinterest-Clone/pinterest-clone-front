@@ -1,24 +1,15 @@
 import React from "react";
 import { styled } from "styled-components";
 import { useQuery } from "react-query";
-
-import jejus from "../../assets/img/jejus.jpg";
-import ten from "../../assets/img/10.jpg";
 import { useNavigate } from "react-router-dom";
 
 // axios 함수
 import { getAllPins } from "../../axios/Home";
 
 export default function HomePage() {
-  const imgs = [jejus, ten];
-
   const navigate = useNavigate();
 
   const saveBtnClickHandler = () => {};
-
-  const getRandomHeight = () => {
-    return Math.floor(Math.random() * (700 - 200 + 1) + 200) + "px"; // 200px부터 500px 사이의 랜덤 높이
-  };
 
   const { data, isLoading, isError, error } = useQuery(
     "getAllPins",
@@ -33,51 +24,21 @@ export default function HomePage() {
     return <div>Error: {error.message}</div>;
   }
 
-  const allPins = data;
+  const allPins = data.data;
   console.log(allPins);
-
-  const dummyPins = [
-    {
-      pin_id: 1,
-      image: "이미지 url",
-    },
-    {
-      pin_id: 2,
-      image: "이미지 url",
-    },
-  ];
 
   return (
     <div>
       <PinCardContainer>
-        {imgs.map((image) => (
-          <PinCard onClick={() => navigate("/detail/:1")}>
-            <img src={image} alt="하강~" />
+        {allPins.map((pin) => (
+          <PinCard
+            key={pin.pin_id}
+            onClick={() => navigate(`/detail/${pin.pin_id}`)}
+          >
+            <img src={pin.imageUrl} alt="하강~" />
             <SaveButton onClick={() => saveBtnClickHandler}>저장</SaveButton>
           </PinCard>
         ))}
-        <PinCard height={getRandomHeight()}>card3</PinCard>
-        <PinCard height={getRandomHeight()}>card4</PinCard>
-        <PinCard height={getRandomHeight()}>card5</PinCard>
-        <PinCard height={getRandomHeight()}>card6</PinCard>
-        <PinCard height={getRandomHeight()}>card7</PinCard>
-        <PinCard height={getRandomHeight()}>card8</PinCard>
-        <PinCard height={getRandomHeight()}>card1</PinCard>
-        <PinCard height={getRandomHeight()}>card2</PinCard>
-        <PinCard height={getRandomHeight()}>card3</PinCard>
-        <PinCard height={getRandomHeight()}>card4</PinCard>
-        <PinCard height={getRandomHeight()}>card5</PinCard>
-        <PinCard height={getRandomHeight()}>card6</PinCard>
-        <PinCard height={getRandomHeight()}>card7</PinCard>
-        <PinCard height={getRandomHeight()}>card8</PinCard>
-        <PinCard height={getRandomHeight()}>card5</PinCard>
-        <PinCard height={getRandomHeight()}>card6</PinCard>
-        <PinCard height={getRandomHeight()}>card7</PinCard>
-        <PinCard height={getRandomHeight()}>card8</PinCard>
-        <PinCard height={getRandomHeight()}>card5</PinCard>
-        <PinCard height={getRandomHeight()}>card6</PinCard>
-        <PinCard height={getRandomHeight()}>card7</PinCard>
-        <PinCard height={getRandomHeight()}>card8</PinCard>
       </PinCardContainer>
     </div>
   );

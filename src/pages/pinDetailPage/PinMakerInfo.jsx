@@ -1,7 +1,7 @@
 import React from "react";
 import * as Styled from "./style";
 
-function PinMakerInfo() {
+function PinMakerInfo({ nickname }) {
   return (
     <Styled.DetailUserInfo>
       <figure>
@@ -9,7 +9,7 @@ function PinMakerInfo() {
           <img src="" alt="" />
         </div>
         <figcaption>
-          <p>작성자</p>
+          <p>{nickname}</p>
           <p>팔로워 수 700만명</p>
         </figcaption>
       </figure>

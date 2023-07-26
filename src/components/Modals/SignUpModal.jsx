@@ -2,10 +2,21 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Logo from "../../assets/icons/PinterestLogoLogin.png"
-import { Instance } from "../../axios/SignAxios";
+import Logo from "../../assets/icons/PinterestLogoLogin.png";
+
+import { signUp } from "../../axios/auth";
+import { useMutation } from "react-query";
 
 const SignUpModal = ({ onClose, onSignUp }) => {
+  const mutation = useMutation(signUp, {
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
   const [isModalLogIn, setModalLogIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,35 +24,35 @@ const SignUpModal = ({ onClose, onSignUp }) => {
   const [checkPassword, setCheckPassword] = useState("");
   const [usernameErrorMessage, setUsernameErrorMessage] = useState("");
 
-
   const handleModalLogin = () => {
-
     const signUpData = {
       email: email,
       password: password,
       birthday: dateOfBirth, // Assuming dateOfBirth is already in the "yyyy-MM-dd" format.
     };
 
+    mutation.mutate(signUpData);
+
     // Send the POST request to the signup API.
-    fetch("/api/users/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(signUpData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // Assuming the server returns a success message or token upon successful signup.
-        // You can handle the response data here.
-        console.log(data);
-        // You can also close the modal or perform any other actions here after successful signup.
-        setModalLogIn(true);
-      })
-      .catch((error) => {
-        // Handle any errors that occur during the signup process.
-        console.error("Error occurred during signup:", error);
-      });
+    // fetch("/api/users/signup", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(signUpData),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     // Assuming the server returns a success message or token upon successful signup.
+    //     // You can handle the response data here.
+    //     console.log(data);
+    //     // You can also close the modal or perform any other actions here after successful signup.
+    //     setModalLogIn(true);
+    //   })
+    //   .catch((error) => {
+    //     // Handle any errors that occur during the signup process.
+    //     console.error("Error occurred during signup:", error);
+    //   });
 
     // 로그인 폼과 관련된 로직을 구현합니다.
     // 이 예시에서는 간단하게 모달 안의 로그인 버튼을 눌렀을 때 isModalLogIn 값을 true로 변경하는 것으로 가정합니다.
@@ -57,7 +68,6 @@ const SignUpModal = ({ onClose, onSignUp }) => {
     setDateOfBirth(date);
   };
 
-
   return (
     <ModalOverlay>
       <ModalContent>
@@ -65,7 +75,10 @@ const SignUpModal = ({ onClose, onSignUp }) => {
           <LogoImageIcon src={Logo} alt="image" />
           <CloseButton onClick={handleCloseModal}>X</CloseButton>
         </HeaderContainer>
-        <WelcomeText>Pinterest에 오신 것을 <br />환영합니다</WelcomeText>
+        <WelcomeText>
+          Pinterest에 오신 것을 <br />
+          환영합니다
+        </WelcomeText>
         <TryText>시도해 볼 만한 새로운 아이디어 찾기</TryText>
         <Form>
           <LoginText>이메일</LoginText>
@@ -79,7 +92,9 @@ const SignUpModal = ({ onClose, onSignUp }) => {
             dateFormat="yyyy-MM-dd"
             placeholderText="생년월일을 선택하세요"
           />
-          <Button type="submit" onClick={handleModalLogin}>계속하기</Button>
+          <Button type="submit" onClick={handleModalLogin}>
+            계속하기
+          </Button>
           <OrText>또는</OrText>
           <FacebookButton>Facebook으로 로그인하기</FacebookButton>
           <GoogleButton>Google로 로그인하기</GoogleButton>
@@ -109,19 +124,19 @@ const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width:484px;
+  width: 484px;
 `;
 
 const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`
+`;
 
 const WelcomeText = styled.div`
   font-size: xx-large;
   font-weight: bold;
-   display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -132,16 +147,16 @@ const TryText = styled.div`
   font-size: medium;
   padding: 10px 0px 0px 0px;
   text-align: center;
-`
+`;
 const OrText = styled.div`
   font-size: small;
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
   font-weight: bold;
-`
+`;
 
-const Form = styled.form`
+const Form = styled.div`
   display: flex;
   flex-direction: column;
   /* align-items: center; */
@@ -162,14 +177,15 @@ const Input = styled.input`
   padding: 5px;
   border-radius: 16px;
   border-color: #dfdfdf;
-   &:hover {
-    border-color: gray;}
+  &:hover {
+    border-color: gray;
+  }
 `;
 
 const Button = styled.button`
   width: 268px;
   height: 40px;
-  margin: 20px auto ;
+  margin: 20px auto;
   background-color: red;
   border-radius: 20px;
   color: white;
@@ -183,7 +199,7 @@ const FacebookButton = styled.button`
   width: 268px;
   height: 40px;
   margin: 10px auto;
-  background-color: #3b5998; 
+  background-color: #3b5998;
   border-radius: 20px;
   color: white;
   font-weight: bold;
@@ -204,14 +220,12 @@ const GoogleButton = styled.button`
   display: block; /* Ensure the button takes the full width of its container */
 `;
 
-
 const CloseButton = styled.button`
   border: none;
   width: 40px;
   height: 40px;
   border-radius: 20px;
   margin-top: 10px;
-  
 `;
 
 const DatePickerInput = styled(DatePicker)`
@@ -226,13 +240,11 @@ const DatePickerInput = styled(DatePicker)`
   }
 `;
 
-
-
 const LogoImageIcon = styled.img`
-width: 40px;
-height: 38px;
-margin-bottom: auto;
-margin-top: 10px;
+  width: 40px;
+  height: 38px;
+  margin-bottom: auto;
+  margin-top: 10px;
 `;
 
 export default SignUpModal;
