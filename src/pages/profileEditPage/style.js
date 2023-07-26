@@ -1,4 +1,6 @@
 import { styled } from "styled-components";
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
 const EditOuter = styled.div`
   padding: 80px 0 80px 0;
@@ -20,9 +22,8 @@ const EditNav = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  width: 25%;
-  margin-right: 100px;
-  padding-right: 100px;
+  width: 30%;
+  margin-right: 200px;
   
   
   & > div {
@@ -30,7 +31,6 @@ const EditNav = styled.div`
     flex-direction: column;
     cursor: pointer;
     width: fit-content;
-    margin: 10px 0 0 10px;
 
     div:first-child{
       width: fit-content;
@@ -51,7 +51,7 @@ const SelectedBar = styled.div`
   display: flex;
   justify-content: center;
   box-sizing: border-box;
-  padding: 1px 0;
+  padding: 1.5px 0;
   width: 80%;
   margin: 0 auto;
   border-radius: 5px;
@@ -61,33 +61,80 @@ const SelectedBar = styled.div`
 const EditSection = styled.div`
   max-width: 490px;
   box-sizing: border-box;
-  width: 75%;
+  width: 70%;
   margin-top: 10px;
 `
 
 const OpenProfileEdit = styled.div`
-  background-color: pink;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
+  box-sizing: border-box;
 `
 
 const TextAlign = styled.div`
-  margin-top: 18px;
+  margin-top: 12px;
   margin-bottom: 10px;
   text-align: left;
   font-size: 12px;
 `
 
 const Input = styled.input`
-width: 220px;
-padding: 10px;
-border: 1px solid lightgrey;
+width: 462px;
+height: 25px;
+padding: 8px 16px;
+border: 2px solid lightgrey;
 border-radius: 14px;
+
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
 
 &:hover {
   border-color: grey;
 };
+`
+
+const DateInput = styled(DatePicker)`
+  width: 268px;
+  height: 35px;
+  margin: 5px 0;
+  padding: 5px;
+  border-radius: 16px;
+  border-color: #dfdfdf;
+  &:hover {
+    border-color: gray;
+  }
+`
+
+const OtherLavel = styled.label`
+  font-size: 16px;
+  line-height: 2rem;
+  padding-right: 30px;
+  padding-bottom: 10px;
+  display: wrap;
+  flex-wrap: wrap;
+  align-items: center;
+`
+
+const OtherRadio = styled.input`
+&[type="radio"] {
+  vertical-align: middle;
+  appearance: none;
+  border: max(4px, 0.1em) solid gray;
+  border-radius: 50%;
+  width: 23px;
+  height: 23px;
+};
+
+&[type="radio"]:checked {
+  border: 7.5px solid black;
+};
+
+&[type="radio"]:hover {
+  box-shadow: 0 0 0 max(2px, 0.2em) lightgray;
+  cursor: pointer;
+}
 `
 
 const PersonalInfoEdit = styled.div`
@@ -128,6 +175,9 @@ export {
   OpenProfileEdit,
   TextAlign,
   Input,
+  DateInput,
+  OtherLavel,
+  OtherRadio,
   PersonalInfoEdit,
   FooterSection,
   SaveBtn,
