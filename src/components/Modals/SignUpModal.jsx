@@ -14,20 +14,15 @@ const SignUpModal = ({ onClose, onSignUp }) => {
   const [checkPassword, setCheckPassword] = useState("");
   const [usernameErrorMessage, setUsernameErrorMessage] = useState("");
 
-  const queryClient = useQueryClient();
-  // mutation 선언
-  const mutation = useMutation(signUp, {
-    onSuccess: (data) => {
-      console.log(data);
-      queryClient.invalidateQueries('api/users/signup');
-    }
-  });
-
   const handleModalLogin = () => {
-    console.log('hi');
-    mutation.mutate({ email, password });
-  };
+    const signUpData = {
+      email: email,
+      password: password,
+      birthday: dateOfBirth, // Assuming dateOfBirth is already in the "yyyy-MM-dd" format.
+    };
 
+    setModalLogIn(true);
+  };
 
   const handleCloseModal = () => {
     onClose();
@@ -46,7 +41,6 @@ const SignUpModal = ({ onClose, onSignUp }) => {
     console.log(date);
     console.log(e.target);
     setDateOfBirth(date);
-
   };
 
   return (
@@ -60,9 +54,19 @@ const SignUpModal = ({ onClose, onSignUp }) => {
         <TryText>시도해 볼 만한 새로운 아이디어 찾기</TryText>
         <div>
           <LoginText>이메일</LoginText>
-          <Input type="text" onChange={handleEmailChange} value={email} placeholder="이메일" />
+          <Input
+            type="text"
+            onChange={handleEmailChange}
+            value={email}
+            placeholder="이메일"
+          />
           <LoginText>비밀번호</LoginText>
-          <Input type="password" onChange={handlePasswordChange} value={password} placeholder="비밀번호" />
+          <Input
+            type="password"
+            onChange={handlePasswordChange}
+            value={password}
+            placeholder="비밀번호"
+          />
           <LoginText>생년월일</LoginText>
           <DatePickerInput
             selected={dateOfBirth}
@@ -78,7 +82,7 @@ const SignUpModal = ({ onClose, onSignUp }) => {
           <GoogleButton>Google로 로그인하기</GoogleButton>
         </div>
       </ModalContent>
-    </ModalOverlay >
+    </ModalOverlay>
   );
 };
 
