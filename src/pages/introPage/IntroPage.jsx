@@ -16,7 +16,7 @@ const IntroPage = () => {
       <FullPage activeSlide={currentSlide} animate={true}>
 
         <Slide value={0}>
-          <s.Main style={{alignItems: 'flex-end'}}>
+          <s.Main style={{ alignItems: 'flex-end' }}>
             <s.BtnWrap>
               <s.MoveBtn onClick={handleNextSlide}>V</s.MoveBtn>
               <s.FollowBtn onClick={handleNextSlide}>
@@ -86,7 +86,7 @@ const IntroPage = () => {
         </Slide>
       </FullPage>
 
-      
+
     </>
   );
 };

@@ -3,16 +3,23 @@ import * as s from './style';
 import Logo from "../../assets/icons/PinterestLogoLogin.png"
 import { useMutation } from "react-query";
 import { login } from "../../axios/auth";
+import { useCookies } from 'react-cookie'
 
 const LoginModal = ({ onClose, onLogin }) => {
   const [isModalLogIn, setModalLogIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [cookies, setCookie] = useCookies(['authToken'])
 
   const mutation = useMutation(login, {
     onSuccess: (data) => {
-      if (data) {
+      if (data && data.token) {
+        setCookie('authToken', data.token, { maxAge: 7 * 24 * 60 * 60 });
         alert("로그인 성공!");
+        onLogin();
+        handleCloseModal();
+      } else {
+        alert('로그인 실패!');
       }
     },
     onError: (error) => {

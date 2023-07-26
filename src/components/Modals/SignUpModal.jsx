@@ -21,7 +21,6 @@ const SignUpModal = ({ onClose, onSignUp }) => {
       birthday: dateOfBirth, // # 생일 포맷 바꾸기
     };
 
-    mutation.mutate(signUpData);
     setModalLogIn(true);
   };
 
@@ -43,8 +42,6 @@ const SignUpModal = ({ onClose, onSignUp }) => {
     console.log(e.target);
     setDateOfBirth(date);
   };
-
-  const mutation = useMutation(signUp, {});
 
   return (
     <s.ModalOverlay>
