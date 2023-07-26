@@ -3,7 +3,7 @@ import * as s from './style';
 import Logo from "../../assets/icons/PinterestLogoLogin.png";
 import { useMutation } from "react-query";
 import { signUp } from "../../axios/auth";
-import ourAxios from "../../axios/ourAxios";
+
 import { parseISO } from "date-fns";
 
 const SignUpModal = ({ onClose, onSignUp }) => {
@@ -18,7 +18,7 @@ const SignUpModal = ({ onClose, onSignUp }) => {
     const signUpData = {
       email: email,
       password: password,
-      birthday: dateOfBirth, // Assuming dateOfBirth is already in the "yyyy-MM-dd" format.
+      birthday: dateOfBirth, // # 생일 포맷 바꾸기
     };
 
     mutation.mutate(signUpData);

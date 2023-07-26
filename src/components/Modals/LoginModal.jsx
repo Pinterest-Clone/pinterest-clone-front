@@ -1,13 +1,28 @@
 import React, { useState } from "react";
 import * as s from './style';
 import Logo from "../../assets/icons/PinterestLogoLogin.png"
+import { useMutation } from "react-query";
+import { login } from "../../axios/auth";
 
 const LoginModal = ({ onClose, onLogin }) => {
   const [isModalLogIn, setModalLogIn] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const mutation = useMutation(login, {
+    onSuccess: (data) => {
+      if (data) {
+        alert("로그인 성공!");
+      }
+    },
+    onError: (error) => {
+      alert("다시 시도해주세요");
+    },
+  });
 
   const handleModalLogin = () => {
-    // 로그인 폼과 관련된 로직을 구현합니다.
-    // 모달 안의 로그인 버튼을 눌렀을 때 isModalLogIn 값을 true로 변경하는 것으로 가정합니다.
+    const loginInfo = { email, password };
+    mutation.mutate(loginInfo);
     setModalLogIn(true);
   };
 
