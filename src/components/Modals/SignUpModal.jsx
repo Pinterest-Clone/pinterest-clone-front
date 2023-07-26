@@ -3,8 +3,6 @@ import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Logo from "../../assets/icons/PinterestLogoLogin.png";
-import { useMutation, useQueryClient } from "react-query";
-import { signUp } from "../../axios/auth";
 
 const SignUpModal = ({ onClose, onSignUp }) => {
   const [isModalLogIn, setModalLogIn] = useState(false);
@@ -22,7 +20,6 @@ const SignUpModal = ({ onClose, onSignUp }) => {
     };
 
     setModalLogIn(true);
-    Mutation.mutate(signUpDate);
   };
 
   const handleCloseModal = () => {
@@ -51,7 +48,10 @@ const SignUpModal = ({ onClose, onSignUp }) => {
           <LogoImageIcon src={Logo} alt="image" />
           <CloseButton onClick={handleCloseModal}>X</CloseButton>
         </HeaderContainer>
-        <WelcomeText>Pinterest에 오신 것을 <br />환영합니다</WelcomeText>
+        <WelcomeText>
+          Pinterest에 오신 것을 <br />
+          환영합니다
+        </WelcomeText>
         <TryText>시도해 볼 만한 새로운 아이디어 찾기</TryText>
         <div>
           <LoginText>이메일</LoginText>
@@ -75,9 +75,9 @@ const SignUpModal = ({ onClose, onSignUp }) => {
             dateFormat="yyyy-MM-dd"
             placeholderText="생년월일을 선택하세요"
           />
-          {email}
-          {password}
-          <Button onClick={handleModalLogin}>계속하기</Button>
+          <Button type="submit" onClick={handleModalLogin}>
+            계속하기
+          </Button>
           <OrText>또는</OrText>
           <FacebookButton>Facebook으로 로그인하기</FacebookButton>
           <GoogleButton>Google로 로그인하기</GoogleButton>
@@ -107,19 +107,19 @@ const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width:484px;
+  width: 484px;
 `;
 
 const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-`
+`;
 
 const WelcomeText = styled.div`
   font-size: xx-large;
   font-weight: bold;
-   display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -130,16 +130,16 @@ const TryText = styled.div`
   font-size: medium;
   padding: 10px 0px 0px 0px;
   text-align: center;
-`
+`;
 const OrText = styled.div`
   font-size: small;
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
   font-weight: bold;
-`
+`;
 
-const Form = styled.form`
+const Form = styled.div`
   display: flex;
   flex-direction: column;
   /* align-items: center; */
@@ -160,14 +160,15 @@ const Input = styled.input`
   padding: 5px;
   border-radius: 16px;
   border-color: #dfdfdf;
-   &:hover {
-    border-color: gray;}
+  &:hover {
+    border-color: gray;
+  }
 `;
 
 const Button = styled.button`
   width: 268px;
   height: 40px;
-  margin: 20px auto ;
+  margin: 20px auto;
   background-color: red;
   border-radius: 20px;
   color: white;
@@ -181,7 +182,7 @@ const FacebookButton = styled.button`
   width: 268px;
   height: 40px;
   margin: 10px auto;
-  background-color: #3b5998; 
+  background-color: #3b5998;
   border-radius: 20px;
   color: white;
   font-weight: bold;
@@ -202,14 +203,12 @@ const GoogleButton = styled.button`
   display: block; /* Ensure the button takes the full width of its container */
 `;
 
-
 const CloseButton = styled.button`
   border: none;
   width: 40px;
   height: 40px;
   border-radius: 20px;
   margin-top: 10px;
-  
 `;
 
 const DatePickerInput = styled(DatePicker)`
@@ -224,13 +223,11 @@ const DatePickerInput = styled(DatePicker)`
   }
 `;
 
-
-
 const LogoImageIcon = styled.img`
-width: 40px;
-height: 38px;
-margin-bottom: auto;
-margin-top: 10px;
+  width: 40px;
+  height: 38px;
+  margin-bottom: auto;
+  margin-top: 10px;
 `;
 
 export default SignUpModal;
