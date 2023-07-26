@@ -7,6 +7,22 @@ import { useMutation, useQueryClient } from "react-query";
 import { signUp } from "../../axios/auth";
 
 const SignUpModal = ({ onClose, onSignUp }) => {
+<<<<<<< HEAD
+<<<<<<< HEAD
+  
+=======
+  const mutation = useMutation(signUp, {
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+>>>>>>> 9067a689b8f24160941d268b7949cbb2c52651db
+=======
+>>>>>>> b92351515deb9ee5cbaa5cabe719b58e461499cc
   const [isModalLogIn, setModalLogIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,6 +31,9 @@ const SignUpModal = ({ onClose, onSignUp }) => {
   const [usernameErrorMessage, setUsernameErrorMessage] = useState("");
 
   const handleModalLogin = () => {
+<<<<<<< HEAD
+    console.log('hi');
+=======
     const signUpData = {
       email: email,
       password: password,
@@ -22,6 +41,11 @@ const SignUpModal = ({ onClose, onSignUp }) => {
     };
 
     setModalLogIn(true);
+<<<<<<< HEAD
+>>>>>>> 9067a689b8f24160941d268b7949cbb2c52651db
+    mutation.mutate({ email, password });
+=======
+>>>>>>> b92351515deb9ee5cbaa5cabe719b58e461499cc
   };
 
   const handleCloseModal = () => {
