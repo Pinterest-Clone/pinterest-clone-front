@@ -10,34 +10,20 @@ import PinImage from "./PinImage";
 import PinHeadNav from "./PinHeadNav";
 import PinMakerInfo from "./PinMakerInfo";
 import PinReplyList from "./PinReplyList";
+import { useQuery } from "react-query";
+import { useParams } from "react-router-dom";
+import { getPinbyId } from "../../axios/pinDetail";
 
 export default function PinDetailPage() {
   const [showEmojiBox, setShowEmojiBox] = useState(false);
   const [content, setContent] = useState("");
   const emojiPickerRef = useRef(null);
 
-  useEffect(() => {
-    // figure 요소의 높이 계산
-    const pinImgHeight = document.getElementById("pin-image").clientHeight;
+  // params로 id 받아오기
+  const { pinid } = useParams();
 
-    // figure 높이를 기준으로 section 요소의 최대 높이 설정
-    const sectionElement = document.getElementById("pin-desc");
-
-    // textarea 창 크기
-    autoResize();
-
-    if (sectionElement) {
-      sectionElement.style.maxHeight = `${pinImgHeight}px`;
-    }
-
-    // 바깥 영역 클릭 이벤트 리스너 추가
-    document.addEventListener("click", handleOutsideClick);
-
-    // 컴포넌트가 unmount될 때 이벤트 리스너 제거
-    return () => {
-      document.removeEventListener("click", handleOutsideClick);
-    };
-  }, []);
+  // 통신
+  const { data } = useQuery(`pin${pinid}`, getPinbyId(pinid));
 
   const handleOutsideClick = (event) => {
     if (
@@ -55,8 +41,10 @@ export default function PinDetailPage() {
 
   function autoResize() {
     const textarea = document.getElementById("contentTextarea");
-    textarea.style.height = "auto";
-    textarea.style.height = `${textarea.scrollHeight}px`;
+    if (textarea) {
+      textarea.style.height = "auto";
+      textarea.style.height = `${textarea.scrollHeight}px`;
+    }
   }
 
   const onClickEmojiButtonHandler = (event) => {
@@ -69,18 +57,49 @@ export default function PinDetailPage() {
     setShowEmojiBox(false);
   }
 
+  useEffect(() => {
+    const sectionElement = document.getElementById("pin-desc");
+    const pinImageElement = document.getElementById("pin-image");
+
+    if (pinImageElement && sectionElement) {
+      const pinImgHeight = pinImageElement.clientHeight;
+      sectionElement.style.maxHeight = `${pinImgHeight}px`;
+    }
+
+    // textarea 창 크기
+    autoResize();
+
+    // 바깥 영역 클릭 이벤트 리스너 추가
+    document.addEventListener("click", handleOutsideClick);
+
+    // 컴포넌트가 unmount될 때 이벤트 리스너 제거
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [data]); // data가 변경될 때에만 useEffect를 다시 실행
+
+  // 통신 처리
+  if (!data) {
+    return <div>Loading...</div>; // 데이터가 아직 로드되지 않았을 때 로딩 표시
+  }
+
+  const pin = data.data;
+  const comments = pin.comments;
+  console.log(pin);
+  // 나머지 코드
+
   return (
     <Styled.Detailmain>
       <Styled.DetailArticle>
-        <PinImage />
+        <PinImage id="pin-image" imageUrl={pin.imageUrl} />
         <section id="pin-desc">
           <PinHeadNav />
           <Styled.DetailContentBox>
             <Styled.DetailPinInfo>
-              <h1>제목</h1>
-              <p>내용내용</p>
+              <h1>{pin.title}</h1>
+              <p>{pin.content}</p>
             </Styled.DetailPinInfo>
-            <PinMakerInfo />
+            <PinMakerInfo nickname={pin.nickname} />
             <Styled.DetailReplyBox>
               {false ? (
                 <div>댓글</div>
@@ -97,7 +116,7 @@ export default function PinDetailPage() {
                   아직 댓글이 없습니다. 대화를 시작하려면 하나를 추가하세요.
                 </p>
               ) : (
-                <PinReplyList />
+                <PinReplyList comments={pin.comments} />
               )}
             </Styled.DetailReplyBox>
           </Styled.DetailContentBox>
