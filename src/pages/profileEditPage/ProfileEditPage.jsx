@@ -100,7 +100,6 @@ export default function ProfileEditPage() {
                       회원님의 프로필을 방문하려는 사용자에게 다음 정보가
                       표시됩니다.
                     </div>
-
                     <s.TextAlign style={{ marginBottom: "0" }}>
                       사진
                     </s.TextAlign>
@@ -113,7 +112,6 @@ export default function ProfileEditPage() {
                     >
                       <div
                         style={{
-                          marginTop: "px",
                           margin: "0 15px 0 0",
                           width: "75px",
                           height: "75px",
