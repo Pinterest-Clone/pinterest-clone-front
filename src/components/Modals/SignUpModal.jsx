@@ -8,6 +8,7 @@ import { signUp } from "../../axios/auth";
 
 const SignUpModal = ({ onClose, onSignUp }) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
   
 =======
   const mutation = useMutation(signUp, {
@@ -20,21 +21,14 @@ const SignUpModal = ({ onClose, onSignUp }) => {
   });
 
 >>>>>>> 9067a689b8f24160941d268b7949cbb2c52651db
+=======
+>>>>>>> b92351515deb9ee5cbaa5cabe719b58e461499cc
   const [isModalLogIn, setModalLogIn] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState(null);
   const [checkPassword, setCheckPassword] = useState("");
   const [usernameErrorMessage, setUsernameErrorMessage] = useState("");
-
-  const queryClient = useQueryClient();
-  // mutation 선언
-  const mutation = useMutation(signUp, {
-    onSuccess: (data) => {
-      console.log(data);
-      queryClient.invalidateQueries('api/users/signup');
-    }
-  });
 
   const handleModalLogin = () => {
 <<<<<<< HEAD
@@ -46,34 +40,13 @@ const SignUpModal = ({ onClose, onSignUp }) => {
       birthday: dateOfBirth, // Assuming dateOfBirth is already in the "yyyy-MM-dd" format.
     };
 
-    mutation.mutate(signUpData);
-
-    // Send the POST request to the signup API.
-    // fetch("/api/users/signup", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(signUpData),
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     // Assuming the server returns a success message or token upon successful signup.
-    //     // You can handle the response data here.
-    //     console.log(data);
-    //     // You can also close the modal or perform any other actions here after successful signup.
-    //     setModalLogIn(true);
-    //   })
-    //   .catch((error) => {
-    //     // Handle any errors that occur during the signup process.
-    //     console.error("Error occurred during signup:", error);
-    //   });
-
     setModalLogIn(true);
+<<<<<<< HEAD
 >>>>>>> 9067a689b8f24160941d268b7949cbb2c52651db
     mutation.mutate({ email, password });
+=======
+>>>>>>> b92351515deb9ee5cbaa5cabe719b58e461499cc
   };
-
 
   const handleCloseModal = () => {
     onClose();
@@ -92,7 +65,6 @@ const SignUpModal = ({ onClose, onSignUp }) => {
     console.log(date);
     console.log(e.target);
     setDateOfBirth(date);
-
   };
 
   return (
@@ -109,9 +81,19 @@ const SignUpModal = ({ onClose, onSignUp }) => {
         <TryText>시도해 볼 만한 새로운 아이디어 찾기</TryText>
         <div>
           <LoginText>이메일</LoginText>
-          <Input type="text" onChange={handleEmailChange} value={email} placeholder="이메일" />
+          <Input
+            type="text"
+            onChange={handleEmailChange}
+            value={email}
+            placeholder="이메일"
+          />
           <LoginText>비밀번호</LoginText>
-          <Input type="password" onChange={handlePasswordChange} value={password} placeholder="비밀번호" />
+          <Input
+            type="password"
+            onChange={handlePasswordChange}
+            value={password}
+            placeholder="비밀번호"
+          />
           <LoginText>생년월일</LoginText>
           <DatePickerInput
             selected={dateOfBirth}
@@ -127,7 +109,7 @@ const SignUpModal = ({ onClose, onSignUp }) => {
           <GoogleButton>Google로 로그인하기</GoogleButton>
         </div>
       </ModalContent>
-    </ModalOverlay >
+    </ModalOverlay>
   );
 };
 

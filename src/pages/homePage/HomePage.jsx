@@ -9,7 +9,7 @@ import { getAllPins } from "../../axios/Home";
 export default function HomePage() {
   const navigate = useNavigate();
 
-  const saveBtnClickHandler = () => { };
+  const saveBtnClickHandler = () => {};
 
   const { data, isLoading, isError, error } = useQuery(
     "getAllPins",
