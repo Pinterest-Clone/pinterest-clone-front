@@ -20,6 +20,7 @@ const SignUpModal = ({ onClose, onSignUp }) => {
     };
 
     setModalLogIn(true);
+    console.log("이게되네")
   };
 
   const handleCloseModal = () => {

@@ -19,8 +19,8 @@ const IntroPage = () => {
           <Main>
             <BtnWrap>
               <MoveBtn onClick={handleNextSlide}>V</MoveBtn>
-              <FollowBtn onClick={handleNextSlide}>방식은 다음과 같습니다▾</FollowBtn>
             </BtnWrap>
+            <FollowBtn onClick={handleNextSlide}>방식은 다음과 같습니다▾</FollowBtn>
             <NestedMain>
               <AutoSlides>
                 <AutoSlide $bgColor="#ff0000" />
@@ -94,7 +94,7 @@ const Main = styled.div`
   position: relative;
   display: flex; 
   align-items: center;
-   justify-content: center; /* Center horizontally */
+  justify-content: center; /* Center horizontally */
   width: 100%;
   height: 100%;
   background: ${({ $bgColor }) => $bgColor};
@@ -186,15 +186,6 @@ const HalfImg = styled.img`
   object-fit: cover;
 `
 
-const SemiTransparentBackground = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); 
-  z-index: -1;
-`;
 
 const BackImg = styled.img`
   width: auto;
