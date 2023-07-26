@@ -1,20 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
-import EmojiPicker from "emoji-picker-react";
+import React, { useState } from "react";
 
 import { ReactComponent as Dots } from "../../assets/icons/dots.svg";
 import { ReactComponent as ArrowDown } from "../../assets/icons/arrowDown.svg";
-import { ReactComponent as Smile } from "../../assets/icons/smile.svg";
-import { ReactComponent as Down } from "../../assets/icons/triangleDown.svg";
 
 import * as Styled from "./style";
+import { PinUserInfo } from "./PinUserInfo";
+import { PinTextarea } from "./PinTextarea";
 
 export default function MakePinPage() {
   const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [link, setLink] = useState("");
-  const [divContent, setDivContent] = useState("");
-  const [showEmojiBox, setShowEmojiBox] = useState(false);
-
-  const emojiPickerRef = useRef(null);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -24,44 +20,16 @@ export default function MakePinPage() {
     setLink(event.target.value);
   };
 
-  const handleDivChange = (event) => {
-    const { value } = event.target;
-    setDivContent(value);
-  };
-
-  useEffect(() => {
-    // 바깥 영역 클릭 이벤트 리스너 추가
-    document.addEventListener("click", handleOutsideClick);
-
-    // 컴포넌트가 unmount될 때 이벤트 리스너 제거
-    return () => {
-      document.removeEventListener("click", handleOutsideClick);
-    };
-  }, []);
-
-  const onClickEmojiButtonHandler = (event) => {
-    event.stopPropagation(); // 이벤트 중단
-    setShowEmojiBox((prevShowEmojiBox) => !prevShowEmojiBox);
-  };
-
-  const handleOutsideClick = (event) => {
-    if (
-      emojiPickerRef.current &&
-      !emojiPickerRef.current.contains(event.target)
-    ) {
-      setShowEmojiBox(false);
-    }
-  };
-
   return (
     <Styled.MakePinMain>
       <Styled.MakePinArticle>
         <Styled.ArticleHeadNav>
           <button>
-            <Dots />
+            <Dots stroke="black" />
           </button>
           <button>
-            저장 <ArrowDown />
+            <p>저장</p>
+            <ArrowDown fill="white" />
           </button>
         </Styled.ArticleHeadNav>
         <Styled.ArticleBodyBox>
@@ -76,38 +44,8 @@ export default function MakePinPage() {
               placeholder="제목 추가"
               $isEmpty={title === "" ? true : false}
             />
-            <Styled.MakeUserInfo>
-              <figure>
-                <div>
-                  <img src="" alt="" />
-                </div>
-                <figcaption>
-                  <p>작성자</p>
-                </figcaption>
-              </figure>
-            </Styled.MakeUserInfo>
-            <Styled.MakePinInputBox $isEmpty={divContent === "" ? true : false}>
-              <p>사람들에게 회원님의 핀에 대해 설명해 보세요</p>
-              <section>
-                <div
-                  contentEditable
-                  onInput={handleDivChange}
-                  dangerouslySetInnerHTML={{ __html: divContent }}
-                />
-                <button
-                  onClick={onClickEmojiButtonHandler}
-                  className={showEmojiBox ? "emojiButtonActive" : ""}
-                >
-                  <Smile fill="gray" />
-                </button>
-                {showEmojiBox && (
-                  <div id="emojiBox" ref={emojiPickerRef}>
-                    <Down />
-                    <EmojiPicker height="400px" />
-                  </div>
-                )}
-              </section>
-            </Styled.MakePinInputBox>
+            <PinUserInfo />
+            <PinTextarea content={content} setContent={setContent} />
             <Styled.LinkInput
               type="text"
               onChange={handleLinkChange}
