@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+<<<<<<< HEAD
 import Logo from "../../assets/icons/PinterestLogoLogin.png"
+=======
+import Logo from "../../assets/icons/PinterestLogoLogin.png";
+import { useMutation, useQueryClient } from "react-query";
+import { signUp } from "../../axios/auth";
+>>>>>>> 49871ec9819a4eb76153f5c836c99526153ca6a2
 
 const SignUpModal = ({ onClose, onSignUp }) => {
   const [isModalLogIn, setModalLogIn] = useState(false);
@@ -12,8 +18,17 @@ const SignUpModal = ({ onClose, onSignUp }) => {
   const [checkPassword, setCheckPassword] = useState("");
   const [usernameErrorMessage, setUsernameErrorMessage] = useState("");
 
+  const queryClient = useQueryClient();
+  // mutation 선언
+  const mutation = useMutation(signUp, {
+    onSuccess: (data) => {
+      console.log(data);
+      queryClient.invalidateQueries('api/users/signup');
+    }
+  });
 
   const handleModalLogin = () => {
+<<<<<<< HEAD
 
     const signUpData = {
       email: email,
@@ -45,17 +60,32 @@ const SignUpModal = ({ onClose, onSignUp }) => {
     // // 로그인 폼과 관련된 로직을 구현합니다.
     // // 이 예시에서는 간단하게 모달 안의 로그인 버튼을 눌렀을 때 isModalLogIn 값을 true로 변경하는 것으로 가정합니다.
     // setModalLogIn(true);
+=======
+    console.log('hi');
+    mutation.mutate({ email, password });
+>>>>>>> 49871ec9819a4eb76153f5c836c99526153ca6a2
   };
+
 
   const handleCloseModal = () => {
     onClose();
     setModalLogIn(false);
   };
 
-  const handleDateOfBirthChange = (date) => {
-    setDateOfBirth(date);
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
   };
 
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleDateOfBirthChange = (date, e) => {
+    console.log(date);
+    console.log(e.target);
+    setDateOfBirth(date);
+
+  };
 
   return (
     <ModalOverlay>
@@ -66,11 +96,11 @@ const SignUpModal = ({ onClose, onSignUp }) => {
         </HeaderContainer>
         <WelcomeText>Pinterest에 오신 것을 <br />환영합니다</WelcomeText>
         <TryText>시도해 볼 만한 새로운 아이디어 찾기</TryText>
-        <Form>
+        <div>
           <LoginText>이메일</LoginText>
-          <Input type="text" placeholder="이메일" />
+          <Input type="text" onChange={handleEmailChange} value={email} placeholder="이메일" />
           <LoginText>비밀번호</LoginText>
-          <Input type="password" placeholder="비밀번호" />
+          <Input type="password" onChange={handlePasswordChange} value={password} placeholder="비밀번호" />
           <LoginText>생년월일</LoginText>
           <DatePickerInput
             selected={dateOfBirth}
@@ -78,13 +108,15 @@ const SignUpModal = ({ onClose, onSignUp }) => {
             dateFormat="yyyy-MM-dd"
             placeholderText="생년월일을 선택하세요"
           />
-          <Button type="submit" onClick={handleModalLogin}>계속하기</Button>
+          {email}
+          {password}
+          <Button onClick={handleModalLogin}>계속하기</Button>
           <OrText>또는</OrText>
           <FacebookButton>Facebook으로 로그인하기</FacebookButton>
           <GoogleButton>Google로 로그인하기</GoogleButton>
-        </Form>
+        </div>
       </ModalContent>
-    </ModalOverlay>
+    </ModalOverlay >
   );
 };
 

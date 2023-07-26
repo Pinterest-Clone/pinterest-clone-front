@@ -7,14 +7,14 @@ import ten from "../../assets/img/10.jpg";
 import { useNavigate } from "react-router-dom";
 
 // axios 함수
-import { getAllPins } from "../../axios/Home";
+import { getAllPins } from "../../axios/home";
 
 export default function HomePage() {
   const imgs = [jejus, ten];
 
   const navigate = useNavigate();
 
-  const saveBtnClickHandler = () => {};
+  const saveBtnClickHandler = () => { };
 
   const getRandomHeight = () => {
     return Math.floor(Math.random() * (700 - 200 + 1) + 200) + "px"; // 200px부터 500px 사이의 랜덤 높이
