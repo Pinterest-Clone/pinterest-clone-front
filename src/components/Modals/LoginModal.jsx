@@ -7,7 +7,7 @@ const LoginModal = ({ onClose, onLogin }) => {
 
   const handleModalLogin = () => {
     // 로그인 폼과 관련된 로직을 구현합니다.
-    // 이 예시에서는 간단하게 모달 안의 로그인 버튼을 눌렀을 때 isModalLogIn 값을 true로 변경하는 것으로 가정합니다.
+    // 모달 안의 로그인 버튼을 눌렀을 때 isModalLogIn 값을 true로 변경하는 것으로 가정합니다.
     setModalLogIn(true);
   };
 
