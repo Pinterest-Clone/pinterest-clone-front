@@ -1,12 +1,16 @@
 import styled from "styled-components";
 
 export const MakePinMain = styled.div`
-  box-sizing: border-box;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  padding-top: 100px;
   background: #efefef;
+  padding-bottom: 100px;
+
+  & > div {
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    padding-top: 100px;
+    background: #efefef;
+  }
 `;
 
 export const MakePinArticle = styled.article`
@@ -14,7 +18,8 @@ export const MakePinArticle = styled.article`
   display: flex;
   flex-direction: column;
   gap: 30px;
-  width: 700px;
+  width: 800px;
+  min-height: 550px;
   padding: 50px;
   height: fit-content;
   background: #ffffff;
@@ -78,20 +83,27 @@ export const ArticleHeadNav = styled.nav`
 export const ArticleBodyBox = styled.div`
   box-sizing: border-box;
   width: 100%;
+  flex: 1;
   display: flex;
   justify-content: space-between;
 
   .col1 {
     width: 35%;
     border-radius: 10px;
+    overflow: hidden;
     background: #efefef;
+
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
   }
 
   .col2 {
     width: 60%;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    justify-content: space-between;
   }
 `;
 
@@ -136,7 +148,7 @@ export const MakeUserInfo = styled.div`
 export const MakePinInputBox = styled.div`
   position: relative;
   width: 100%;
-  margin-bottom: 150px;
+  margin-bottom: 100px;
   box-sizing: border-box;
   padding: 5px 0;
   display: flex;

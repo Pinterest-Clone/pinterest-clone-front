@@ -8,6 +8,7 @@
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
     "axios": "^1.4.0",
+    "browser-image-compression": "^2.0.2",
     "date-fns": "^2.30.0",
     "emoji-picker-react": "^4.4.10",
     "react": "^18.2.0",
