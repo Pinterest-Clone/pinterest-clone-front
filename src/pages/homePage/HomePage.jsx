@@ -33,8 +33,7 @@ export default function HomePage() {
         {allPins.map((pin) => (
           <PinCard
             key={pin.pin_id}
-            onClick={() => navigate(`/detail/${pin.pin_id}`)}
-          >
+            onClick={() => navigate(`/detail/${pin.pin_id}`)}>
             <img src={pin.imageUrl} alt="하강~" />
             <SaveButton onClick={() => saveBtnClickHandler}>저장</SaveButton>
           </PinCard>
