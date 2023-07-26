@@ -7,9 +7,9 @@ const IntroPage = () => {
     <>
       <FullPage>
         <Slide>
-          <Main $bgColor="white">
+          <Main>
             <button>방식은 다음과 같습니다▾</button>
-          </Main >
+          </Main>
         </Slide>
         <Slide>
           <Main $bgColor="#fffd92">
