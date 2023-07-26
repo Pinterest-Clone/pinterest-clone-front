@@ -79,6 +79,7 @@ const PinCard = styled.div`
 const PinCardContainer = styled.div`
   column-width: 230px;
   margin: 10px 50px 0 50px;
+  padding-top: 80px;
 `;
 
 const SaveButton = styled.button`
