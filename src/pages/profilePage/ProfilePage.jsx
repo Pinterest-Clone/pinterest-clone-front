@@ -69,10 +69,10 @@ export default function MyPage() {
         </s.ContentContainer>
         <div>팔로잉 0명</div>
         <s.ProfileBtnSet>
-          {profile.mypage ? (
+          {profile.myPage ? (
             <>
               <s.ProfileBtn>공유</s.ProfileBtn>
-              <s.ProfileBtn onClick={() => navigate("../edit/:nickname")}>
+              <s.ProfileBtn>
                 프로필 수정
               </s.ProfileBtn>
             </>

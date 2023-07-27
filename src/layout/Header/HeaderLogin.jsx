@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 // import { useCookies } from "react-cookie";
 import LogoLogin from "../../assets/icons/PinterestLogoLogin.png";
@@ -15,7 +16,8 @@ const cookies = new Cookies();
 
 const HeaderLogin = () => {
   const navigate = useNavigate();
-
+  const {nickname} = useParams();
+console.log(nickname)
   const [showDropdown, setShowDropdown] = useState(false);
 
   const toggleDropdown = () => {
@@ -35,9 +37,9 @@ const HeaderLogin = () => {
   return (
     <HeaderInContainer>
       <HeaderLogo src={LogoLogin} alt="image" onClick={() => window.location.reload()} />
-      <HomeButton>홈</HomeButton>
+      <HomeButton onClick={()=>navigate('/home')}>홈</HomeButton>
       <MakingContainer onClick={toggleDropdown}>
-        <MakeButton>만들기</MakeButton>
+        <MakeButton onClick={()=>navigate('/make')}>만들기</MakeButton>
         <UnderIconImg src={UnderIcon} alt="undericon" />
       </MakingContainer>
       {showDropdown && (
@@ -52,7 +54,7 @@ const HeaderLogin = () => {
       </SearchContainer>
       <ButtonContainer><AlarmButton src={AlarmIcon} alt="alarm" /></ButtonContainer>
       <ButtonContainer><MessageButton src={MessageIcon} alt="message" /></ButtonContainer>
-      <ButtonContainer>⚫</ButtonContainer>
+      <ButtonContainer>⚫</ButtonContainer>      
       <button onClick={logout}> 로그아웃</button>
     </HeaderInContainer >
 
