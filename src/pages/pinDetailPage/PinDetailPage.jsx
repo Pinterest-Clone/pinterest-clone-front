@@ -10,7 +10,7 @@ import PinImage from "./PinImage";
 import PinHeadNav from "./PinHeadNav";
 import PinMakerInfo from "./PinMakerInfo";
 import PinReplyList from "./PinReplyList";
-import { useQuery, useMutation } from "react-query";
+import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { getPinbyId } from "../../axios/pinDetail";
 
@@ -83,17 +83,16 @@ export default function PinDetailPage() {
     return <div>Loading...</div>; // 데이터가 아직 로드되지 않았을 때 로딩 표시
   }
 
+  // 핀 디테일
   const pin = data.data;
-  const comments = pin.comments;
   console.log(pin);
-  // 나머지 코드
 
   return (
     <Styled.Detailmain>
       <Styled.DetailArticle>
         <PinImage id="pin-image" imageUrl={pin.imageUrl} />
         <section id="pin-desc">
-          <PinHeadNav />
+          <PinHeadNav pinid={pin.pin_id} />
           <Styled.DetailContentBox>
             <Styled.DetailPinInfo>
               <h1>{pin.title}</h1>

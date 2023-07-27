@@ -10,10 +10,13 @@ import { Cookies } from "react-cookie";
 import { QueryClient, useMutation, useQueryClient } from "react-query";
 import { postPin } from "../../axios/makePin";
 import imageCompression from "browser-image-compression";
+import { useNavigate } from "react-router-dom";
 
 const cookies = new Cookies();
 
 export default function MakePinPage() {
+  const navigate = useNavigate();
+
   // 로그인 토큰 여부 확인
   const isLogin = cookies.get("accessToken"); // 없으면 undefined
 
@@ -28,6 +31,7 @@ export default function MakePinPage() {
   const mutation = useMutation(postPin, {
     onSuccess: () => {
       alert("핀을 성공적으로 생성했습니다!");
+      navigate("/home");
     },
     onError: () => {
       alert("핀 생성에 실패했습니다. 다시 시도해주세요.");
