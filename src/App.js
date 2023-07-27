@@ -19,8 +19,8 @@ function App() {
           <Route path="home" element={<HomePage />} />
           <Route path="make" element={<MakePinPage />} />
           <Route path="detail/:pinid" element={<PinDetailPage />} />
-          <Route path="profile/:userid" element={<ProfilePage />} />
-          <Route path="profile/edit/:userid" element={<ProfileEditPage />} />
+          <Route path="profile/:nickname" element={<ProfilePage />} />
+          <Route path="edit" element={<ProfileEditPage />} />
         </Route>
       </Routes>
     </QueryClientProvider>

@@ -8,7 +8,7 @@ const ContentsWrap = styled.div`
   width: fit-content;
   margin-left: auto;
   margin-right: 20px;
-  padding-bottom: 100px;
+  padding-bottom: 50px;
 `
 
 const ProfileContentBox = styled.div`

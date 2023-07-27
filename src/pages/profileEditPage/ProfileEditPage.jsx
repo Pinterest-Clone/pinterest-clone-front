@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import * as s from "./style";
+import { useQuery } from "react-query";
+import { getProfileEdit } from "../../axios/profile";
 
 export default function ProfileEditPage() {
   const [isProfileSelected, setIsProfileSelected] = useState(true);
@@ -13,6 +15,9 @@ export default function ProfileEditPage() {
   const [customGender, setCustomGender] = useState("");
 
   const [name, setName] = useState("");
+
+  // 통신
+  const { data } = useQuery("getProfileEdit", getProfileEdit);
 
   const profileToggleHandler = () => {
     // 기존 상태가 선택된 상태일 때에만 토글되지 않도록 변경
@@ -43,6 +48,14 @@ export default function ProfileEditPage() {
     setName(inputValue);
     setIsInputFilled(inputValue.trim() !== "");
   };
+
+  // 통신 처리
+  if (!data) {
+    return <div>Loading...</div>; // 데이터가 아직 로드되지 않았을 때 로딩 표시
+  }
+
+  const profileInfo = data.data;
+  console.log(profileInfo);
 
   return (
     <>
