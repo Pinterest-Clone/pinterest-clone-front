@@ -1,5 +1,6 @@
 import React from "react";
 import * as Styled from "./style";
+import { Link } from "react-router-dom";
 
 function PinMakerInfo({ nickname }) {
   return (
@@ -9,7 +10,7 @@ function PinMakerInfo({ nickname }) {
           <img src="" alt="" />
         </div>
         <figcaption>
-          <p>{nickname}</p>
+          <Link to={`../profile/${nickname}`}>{nickname}</Link>
           <p>팔로워 수 700만명</p>
         </figcaption>
       </figure>
