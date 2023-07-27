@@ -22,7 +22,7 @@ function App() {
           <Route path="make" element={<MakePinPage />} />
           <Route path="detail/:pinid" element={<PinDetailPage />} />
           <Route path="profile/:nickname" element={<ProfilePage />} />
-          <Route path="edit" element={<ProfileEditPage />} />
+          <Route path="edit/:nickname" element={<ProfileEditPage />} />
         </Route>
         <Route path="/login" element={<LoginModal />} />
         <Route path="/signup" element={<SignUpModal />} />

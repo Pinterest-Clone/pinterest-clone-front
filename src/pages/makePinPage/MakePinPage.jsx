@@ -8,12 +8,14 @@ import { Cookies } from "react-cookie";
 import { useMutation } from "react-query";
 import { postPin } from "../../axios/makePin";
 import imageCompression from "browser-image-compression";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { PinTextarea } from './PinTextarea';
 
 const cookies = new Cookies();
 
 export default function MakePinPage() {
+  const navigate = useNavigate();
+
   // 로그인 토큰 여부 확인
   //const isLogin = cookies.get("accessToken"); // 없으면 undefined
   const navigate = useNavigate();

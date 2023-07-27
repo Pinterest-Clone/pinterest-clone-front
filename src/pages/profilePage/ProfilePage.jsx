@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import * as s from "./style";
 import { ReactComponent as AddArrow } from "../../assets/icons/addArrow.svg";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import { getProfile } from "../../axios/profile";
+import { getProfile, getSavedPins } from "../../axios/profile";
 
 export default function MyPage() {
   const [isCreatedSelected, setIsCreatedSelected] = useState(false);
@@ -34,6 +34,16 @@ export default function MyPage() {
     }
   };
 
+  // 저장된 핀 받아오기
+  const { data: savedPins, refetch: refetchSavedPins } = useQuery(
+    `getSavedPins`,
+    getSavedPins(nickname),
+    {
+      enabled: isSavedSelected, // Fetch data only when isSavedSelected is true
+    }
+  );
+  console.log("저장된 핀", savedPins);
+
   const clickedToggleHandler = () => {
     setIsClicked((prevIsClicked) => !prevIsClicked);
     navigate("/make");
@@ -60,12 +70,8 @@ export default function MyPage() {
           {profile.firstName} {profile.lastName}
         </s.ProfileName>
         <s.ProfileId>{profile.nickname}</s.ProfileId>
-
         <s.ContentContainer>
-          <s.ProfileWeb>
-            <a href="https://abxl-l.tistory.com/">abxl-l.tistory.com</a>
-          </s.ProfileWeb>
-          ·<s.ProfileComment>핀터레스트 처음 써 봅니다.</s.ProfileComment>
+          <s.ProfileComment>핀터레스트 처음 써 봅니다.</s.ProfileComment>
         </s.ContentContainer>
         <div>팔로잉 0명</div>
         <s.ProfileBtnSet>
@@ -73,7 +79,7 @@ export default function MyPage() {
             <>
               <s.ProfileBtn>공유</s.ProfileBtn>
               <s.ProfileBtn>
-                프로필 수정
+                <Link to={`../edit/${nickname}`}>프로필 수정</Link>
               </s.ProfileBtn>
             </>
           ) : (

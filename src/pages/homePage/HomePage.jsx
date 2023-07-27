@@ -9,7 +9,7 @@ import { getAllPins } from "../../axios/home";
 export default function HomePage() {
   const navigate = useNavigate();
 
-  const saveBtnClickHandler = () => { };
+  const saveBtnClickHandler = () => {};
 
   const { data, isLoading, isError, error } = useQuery(
     "getAllPins",
@@ -33,7 +33,8 @@ export default function HomePage() {
         {allPins.map((pin) => (
           <PinCard
             key={pin.pin_id}
-            onClick={() => navigate(`/detail/${pin.pin_id}`)}>
+            onClick={() => navigate(`/detail/${pin.pin_id}`)}
+          >
             <img src={pin.imageUrl} alt="하강~" />
             <SaveButton onClick={() => saveBtnClickHandler}>저장</SaveButton>
           </PinCard>

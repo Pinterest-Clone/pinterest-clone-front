@@ -15,3 +15,8 @@ export const getProfileEdit = async () => {
   const response = await getWithToken(`api/users/profile`);
   return response;
 };
+
+export const getSavedPins = (nickname) => async () => {
+  const response = await ourAxios.get(`api/users/${nickname}/saved`);
+  return response;
+};
