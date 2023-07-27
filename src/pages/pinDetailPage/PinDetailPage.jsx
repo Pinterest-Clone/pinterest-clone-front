@@ -10,7 +10,7 @@ import PinImage from "./PinImage";
 import PinHeadNav from "./PinHeadNav";
 import PinMakerInfo from "./PinMakerInfo";
 import PinReplyList from "./PinReplyList";
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import { useParams } from "react-router-dom";
 import { getPinbyId } from "../../axios/pinDetail";
 

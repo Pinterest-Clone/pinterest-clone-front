@@ -1,5 +1,5 @@
-import { styled } from "styled-components";
-import { DatePicker } from 'react-datepicker';
+import styled from 'styled-components';
+import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
 
@@ -144,7 +144,7 @@ const LogoImageIcon = styled.img`
 
 // LogInModal style
 
-const Form = styled.form`
+const FormDiv = styled.div`
   display: flex;
   flex-direction: column;
   /* align-items: center; */
@@ -177,6 +177,6 @@ export {
   DatePickerInput,
   LogoImageIcon,
 
-  Form,
+  FormDiv,
   ForgotText,
 }

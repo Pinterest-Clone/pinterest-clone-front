@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import * as s from './style';
 import Logo from "../../assets/icons/PinterestLogoLogin.png";
-import { useMutation } from "react-query";
 import { signUp } from "../../axios/auth";
+import { useNavigate } from "react-router";
+import { useMutation } from "react-query";
 
-import { parseISO } from "date-fns";
 
 const SignUpModal = ({ onClose, onSignUp }) => {
   const [isModalLogIn, setModalLogIn] = useState(false);
@@ -14,12 +14,27 @@ const SignUpModal = ({ onClose, onSignUp }) => {
   const [checkPassword, setCheckPassword] = useState("");
   const [usernameErrorMessage, setUsernameErrorMessage] = useState("");
 
+  const navigate = useNavigate();
+
+  const mutation = useMutation(signUp, {
+    onSuccess: (data) => {
+      if (data) {
+        alert("회원가입 성공!");
+      }
+    },
+    onError: (error) => {
+      alert("회원가입 오류입니다.", error);
+    },
+  });
+
   const handleModalLogin = async () => {
     const signUpData = {
       email: email,
       password: password,
       birthday: dateOfBirth, // # 생일 포맷 바꾸기
     };
+
+    mutation.mutate(signUpData);
 
     setModalLogIn(true);
   };

@@ -1,18 +1,36 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+
+// import { useCookies } from "react-cookie";
 import LogoLogin from "../../assets/icons/PinterestLogoLogin.png";
 import UnderIcon from "../../assets/icons/undericon.png"
 import SearchIcon from "../../assets/icons/seachicon.png"
 import AlarmIcon from "../../assets/icons/bellicon.png"
 import MessageIcon from "../../assets/icons/chaticon.png"
 
-const HeaderLogin = ({ onLogout }) => {
+import { Cookies } from "react-cookie";
+const cookies = new Cookies();
+
+
+const HeaderLogin = () => {
+  const navigate = useNavigate();
 
   const [showDropdown, setShowDropdown] = useState(false);
 
   const toggleDropdown = () => {
     setShowDropdown((prevState) => !prevState);
   };
+
+
+  const logout = () => {
+    // 쿠키 삭제
+    cookies.remove("accessToken");
+    alert("로그아웃 되었습니다!");
+    navigate("/");
+    window.location.reload();
+  };
+
 
   return (
     <HeaderInContainer>
@@ -35,8 +53,8 @@ const HeaderLogin = ({ onLogout }) => {
       <ButtonContainer><AlarmButton src={AlarmIcon} alt="alarm" /></ButtonContainer>
       <ButtonContainer><MessageButton src={MessageIcon} alt="message" /></ButtonContainer>
       <ButtonContainer>⚫</ButtonContainer>
-      <button onClick={onLogout}>로그아웃</button>
-    </HeaderInContainer>
+      <button onClick={logout}> 로그아웃</button>
+    </HeaderInContainer >
 
   );
 };
