@@ -1,15 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as s from './style';
 import { FullPage, Slide } from 'react-full-page';
 import Jejus from "../../assets/img/jejus.jpg"
 import BackgroundImg from "../../assets/img/backgroundpage.png"
 
 const IntroPage = () => {
+  const TOTAL_SLIDES = 5;
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const handleNextSlide = () => {
-    setCurrentSlide((prevSlide) => (prevSlide + 1) % 5); // 5 is the total number of slides
+    setCurrentSlide((prevSlide) => (prevSlide + 1) % TOTAL_SLIDES);
   };
+
+  const handlePrevSlide = () => {
+    setCurrentSlide((prevSlide) => (prevSlide - 1 + TOTAL_SLIDES) % TOTAL_SLIDES);
+  };
+
+  useEffect(() => {
+    // Auto slide to the next slide every 5 seconds
+    const interval = setInterval(handleNextSlide, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <>

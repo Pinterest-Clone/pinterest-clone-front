@@ -5,10 +5,15 @@ import styled from "styled-components";
 // import { useNavigate } from "react-router-dom";
 import LoginModal from "../../components/Modals/LoginModal";
 
+import { Cookies } from "react-cookie";
+const cookies = new Cookies();
 
 export default function Header(props) {
   const [isLogIn, setLogIn] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
+
+  // 쿠키 확인
+  const hasCookieToken = cookies.get("accessToken");
 
   const handleLogin = () => {
     setLogIn(true);
@@ -34,7 +39,7 @@ export default function Header(props) {
 
   return (
     <HeaderContainer>
-      {isLogIn ? (
+      {hasCookieToken !== undefined ? (
         <HeaderLogin onLogout={handleLogout} />
       ) : (
         <HeaderLogout
